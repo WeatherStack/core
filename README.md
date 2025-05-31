@@ -1,2 +1,2 @@
-# core
-WeatherStack Core (The backend/centre of the project)
+# WeatherStack Core
+For more information, please visit [the documentation](https://weatherstack.github.io/docs/core/).
