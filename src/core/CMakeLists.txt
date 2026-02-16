@@ -27,7 +27,7 @@ target_link_libraries(
 )
 
 # Set warning options
-set(OPTIONS_WARNINGS -Wall -Wpedantic)
+set(OPTIONS_WARNINGS -Wall )#-Wpedantic)
 
 # Set build type optimisations
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
