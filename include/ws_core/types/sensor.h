@@ -39,6 +39,7 @@
 /// @brief Enum for WS_CORE_SENSOR_TYPE_LIST
 enum WS_CORE_SENSOR_TYPE {
     WS_CORE_SENSOR_TYPE_LIST(TO_ENUM)
+    WS_CORE_SENSOR_TYPE_LIST_END        // Just so it's easier to count
 };
 typedef WS_CORE_SENSOR_TYPE WS_CORE_SENSOR_TYPE;
 
