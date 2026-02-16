@@ -3,9 +3,9 @@
 REM Windows build script for WeatherStack Core (BATCH script)
 REM ---------------------------------------------------------
 REM Options:
-REM     build_win.bat "path/to/build.bat" Debug/Release "path/to/cmake/toolchain/file.cmake"
+REM     build_win.bat "path/to/build" Debug/Release "path/to/vcpkg/toolchain/file.cmake"
 REM Example:
-REM     build_win.bat build Debug
+REM     build_win.bat build Debug "path/to/vcpkg/toolchain/file.cmake"
 
 if not exist %1 (
     echo %1 does not exist, creating...

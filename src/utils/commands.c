@@ -8,6 +8,14 @@ const WS_Utils_Sub_Command commands[] = {
         .args = (WS_Utils_Arg[]) {
             NULL
         }
+    },
+    {
+        .name = "Info",
+        .command = "info",
+
+        .args = (WS_Utils_Arg[]) {
+            NULL
+        }
     }
 };
 
