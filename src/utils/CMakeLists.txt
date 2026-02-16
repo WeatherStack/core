@@ -1,4 +1,4 @@
-project(ws_utils)
+project(ws_utils C)
 
 # Set sources
 file(
@@ -48,21 +48,21 @@ message(STATUS "Compiler options: ${OPTIONS_WARNINGS} ${OPTIONS_OPTIMIZATION}")
 target_compile_options(${PROJECT_NAME} PRIVATE ${OPTIONS_WARNINGS} ${OPTIONS_OPTIMIZATION})
 
 # Set precompile headers
-target_precompile_headers(
-    ${PROJECT_NAME}
-    PRIVATE
-    <string>
-    <string_view>
-    <format>
-    <regex>
-    <optional>
-    <utility>
-    <functional>
-    <memory>
-    <mutex>
-    <exception>
-    <vector>
-    <unordered_map>
-    <algorithm>
-    <chrono>
-)
+#target_precompile_headers(
+#    ${PROJECT_NAME}
+#    PRIVATE
+#    <string>
+#    <string_view>
+#    <format>
+#    <regex>
+#    <optional>
+#    <utility>
+#    <functional>
+#    <memory>
+#    <mutex>
+#    <exception>
+#    <vector>
+#    <unordered_map>
+#    <algorithm>
+#    <chrono>
+#)
