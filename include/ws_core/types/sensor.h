@@ -41,7 +41,7 @@ enum WS_CORE_SENSOR_TYPE {
     WS_CORE_SENSOR_TYPE_LIST(TO_ENUM)
     WS_CORE_SENSOR_TYPE_LIST_END        // Just so it's easier to count
 };
-typedef WS_CORE_SENSOR_TYPE WS_CORE_SENSOR_TYPE;
+typedef enum WS_CORE_SENSOR_TYPE WS_CORE_SENSOR_TYPE;
 
 /// @brief String array for WS_CORE_SENSOR_TYPE_LIST
 const char* WS_CORE_SENSOR_TYPE_STRINGS[] = {
@@ -58,4 +58,4 @@ struct WS_Core_Sensor {
 
     WS_CORE_SENSOR_TYPE sensor_type;
 };
-typedef WS_Core_Sensor WS_Core_Sensor;
+typedef struct WS_Core_Sensor WS_Core_Sensor;
