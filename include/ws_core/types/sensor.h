@@ -21,7 +21,20 @@
 
 // Use an X macro (https://en.wikipedia.org/wiki/X_macro) for ease
 #define WS_CORE_SENSOR_TYPE_LIST(X) \
-    X(TEMPERATURE)                  
+    X(TEMPERATURE)                  \
+    X(HUMIDITY)                     \
+    X(PRESSURE)                     \
+    X(RAIN)                         \
+    X(RAIN_PER)                     \
+    X(WIND_DIRECTION)               \
+    X(WIND_SPEED)                   \
+    X(LIGHT)                        \
+    X(OXIDISED)                     \
+    X(REDUCED)                      \
+    X(NH3)                          \
+    X(PM1)                          \
+    X(PM25)                         \
+    X(PM10)
 
 /// @brief Enum for WS_CORE_SENSOR_TYPE_LIST
 enum WS_CORE_SENSOR_TYPE {
