@@ -1,6 +1,7 @@
 #include <crow.h>
 #include <ws_core/ws.h>
 #include <ws_core/utils.h>
+#include <ws_core/types/args.h>
 
 using namespace WS_Core;
 
@@ -8,6 +9,13 @@ int main(int argc, char* const argv[]) {
     // Fetch environment variables
     const int PORT = std::stoi(Utils::GetEnv("PORT", "8000"));
     const int INTERNAL_PORT = std::stoi(Utils::GetEnv("INTERNAL_PORT", "5000"));
+
+    Args::values["PORT"].integer = PORT;
+    Args::values["INTERNAL_PORT"].integer = INTERNAL_PORT;
+
+    // Parse arguments
+    // Arguments can (sometimes) override environment variables
+    Args::parse_args(argc, argv);
 
     // Create Crow app
     crow::SimpleApp app;
