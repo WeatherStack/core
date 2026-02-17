@@ -128,22 +128,62 @@ bool Args::parse_args(int argc, char* const argv[]) {
         if(find_arg(argv[i], &current_arg)) {
             switch(Args::args[i].arg_type) {
                 case Args::Type::FLAG:
-
+                    /// @todo Flag implementation
                     break;
                 case Args::Type::INTEGER:
-                    
+                    if(i == argc - 1) {
+                        // Invalid arguments
+                        return false;
+                    }
+                    Args::set_value(
+                        Args::args[i].internal_name,
+                        std::atoi(argv[i + 1]),
+                        false
+                    );
+                    i++;
                     break;
                 case Args::Type::STRING:
-
+                    if(i == argc - 1) {
+                        // Invalid arguments
+                        return false;
+                    }
+                    Args::set_value(
+                        Args::args[i].internal_name,
+                        argv[i + 1],
+                        false
+                    );
+                    i++;
                     break;
                 case Args::Type::FLOAT:
-
+                    if(i == argc - 1) {
+                        // Invalid arguments
+                        return false;
+                    }
+                    Args::set_value(
+                        Args::args[i].internal_name,
+                        std::atof(argv[i + 1]),
+                        false
+                    );
+                    i++;
                     break;
                 case Args::Type::DOUBLE:
-
+                    if(i == argc - 1) {
+                        // Invalid arguments
+                        return false;
+                    }
+                    Args::set_value(
+                        Args::args[i].internal_name,
+                        std::atof(argv[i + 1]),
+                        false
+                    );
+                    i++;
                     break;
                 case Args::Type::PATH:
+                    // Need to check that the path is valid
+                    // even if the file/directory it is pointed
+                    // at does not exist
 
+                    /// @todo Path implementation
                     break;
                 case Args::Type::PORT:
                     // This one is a little special
@@ -151,6 +191,8 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     // that it is within valid port
                     // ranges
                     // And isn't something silly
+
+                    /// @todo Port implementation
                     break;
             }
         } else {
