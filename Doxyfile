@@ -83,14 +83,14 @@ ALPHABETICAL_INDEX      = YES
 GENERATE_HTML           = YES
 HTML_OUTPUT             = html
 HTML_FILE_EXTENSION     = .html
-HTML_ALIGN_MEMBERS      = YES
+#HTML_ALIGN_MEMBERS      = YES
 HTML_DYNAMIC_SECTIONS   = YES
 
-GENERATE_LATEX          = YES
-LATEXT_OUTPUT           = latex
-PDF_HYPERLINKS          = YES
-USE_PDFLATEX            = YES
-LATEX_BATCHMODE         = YES
+#GENERATE_LATEX          = YES
+#LATEXT_OUTPUT           = latex
+#PDF_HYPERLINKS          = YES
+#USE_PDFLATEX            = YES
+#LATEX_BATCHMODE         = YES
 
 DOCSET_FEEDNAME         = "WeatherStack Core Reference"
 
@@ -107,7 +107,7 @@ SEARCH_INCLUDES         = YES
 
 SKIP_FUNCTION_MACROS    = YES
 
-CLASS_DIAGRAMS          = YES
+#CLASS_DIAGRAMS          = YES
 HIDE_UNDOC_RELATIONS    = YES
 
 SEARCHENGINE            = NO
