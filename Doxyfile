@@ -114,7 +114,7 @@ SEARCHENGINE            = NO
 
 FULL_PATH_NAMES         = YES
 
-OUTPUT_DIRECTORY        = @CMAKE_CURRENT_BINARY_DIR@/docs/
-INPUT                   = @CMAKE_CURRENT_SOURCE_DIR@/
-EXCLUDE                 = @CMAKE_CURRENT_SOURCE_DIR@/build
+OUTPUT_DIRECTORY        = /docs
+INPUT                   = /
+EXCLUDE                 = /build
 RECURSIVE               = YES
