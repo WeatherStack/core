@@ -12,7 +12,11 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: DenverCoder1/doxygen-github-pages-action@v2.0.0
+      - name: Checkout repository
+        uses: actions/checkout@4
+      - name: Set up Doxygen
+        run: sudo apt-get install doxygen graphviz -y
+      - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
