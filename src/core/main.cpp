@@ -3,6 +3,23 @@
 #include <ws_core/utils.h>
 #include <ws_core/types/args.h>
 
+/*
+    The WeatherStack Core
+
+    This literally ties everything together, providing
+    a central API for communication.
+
+    It runs two HTTP servers, one designed to be accessed
+    externally, and one designed to be used mainly internally
+    but can be released publicly with some configuration changes.
+
+    Visit the documentation here:
+    https://weatherstack.wtdawson.info/docs/core/
+
+    If there's ever doxygen stuff, it'll probably be here:
+    https://weatherstack.wtdawson.info/core_reference/
+*/
+
 using namespace WS_Core;
 
 #define ENV(x)          Args::get_value(x)
@@ -37,7 +54,7 @@ int main(int argc, char* const argv[]) {
 
     if(ENV("HELP").value.flag) {
         // Display basic help information
-        
+
         return 0;
     }
 
