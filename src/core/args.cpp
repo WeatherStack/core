@@ -110,7 +110,7 @@ Args::Arg* find_arg(const char* name) {
     #endif
 
         if(is_arg) {
-            
+
         }
     }
 
@@ -121,4 +121,58 @@ bool Args::parse_args(int argc, char* const argv[]) {
     for(int i = 1; i < argc; i++) {
 
     }
+}
+
+Args::Value Args::get_value(const char* key, Args::Value def) {
+    auto i = Args::values.find(key);
+    if(i == Args::values.end()) {
+        def.using_default = true;
+        return def;
+    } else {
+
+    }
+}
+
+Args::Value Args::get_value(const char* key) {
+    auto i = Args::values.find(key);
+    if(i == Args::values.end()) {
+        Args::Value val;
+        val.success = false;
+        return val;
+    }
+}
+
+void Args::set_value(const char* key, Arg::Default val, Type type) {
+    Args::values[key].value = val;
+    Args::values[key].type = type;
+}
+
+void Args::set_value(const char* key, bool flag) {
+    Arg::Default val;
+    val.flag = flag;
+    Args::set_value(key, val, Type::FLAG);
+}
+
+void Args::set_value(const char* key, int val, bool port) {
+    Arg::Default _val;
+    _val.integer = val;
+    Args::set_value(key, _val, port ? Type::PORT : Type::INTEGER);
+}
+
+void Args::set_value(const char* key, const char* string, bool path) {
+    Arg::Default val;
+    strcpy(val.string, string);
+    Args::set_value(key, val, path ? Type::PATH : Type::STRING);
+}
+
+void Args::set_value(const char* key, float flt) {
+    Arg::Default val;
+    val.flt = flt;
+    Args::set_value(key, val, Type::FLOAT);
+}
+
+void Args::set_value(const char* key, double dbl) {
+    Arg::Default val;
+    val.dbl = dbl;
+    Args::set_value(key, val, Type::DOUBLE);
 }

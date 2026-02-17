@@ -5,13 +5,18 @@
 
 using namespace WS_Core;
 
+#define ENV(x)          Args::get_value(x)
+#define ENVD(x, y)      Args::get_value(x, y)
+#define ENVS(x, y, z)   Args::set_value(x, y, z)
+#define ENVSV(x, y)     Args::set_value(x, y)
+
 int main(int argc, char* const argv[]) {
     // Fetch environment variables
     const int PORT = std::stoi(Utils::GetEnv("PORT", "8000"));
     const int INTERNAL_PORT = std::stoi(Utils::GetEnv("INTERNAL_PORT", "5000"));
 
-    Args::values["PORT"].integer = PORT;
-    Args::values["INTERNAL_PORT"].integer = INTERNAL_PORT;
+    ENVS("PORT", PORT, true);
+    ENVS("INTERNAL_PORT", INTERNAL_PORT, true);
 
     // Parse arguments
     // Arguments can (sometimes) override environment variables
@@ -28,8 +33,8 @@ int main(int argc, char* const argv[]) {
     });
 
     // Begin listening
-    std::future<void> app_future = app.port(PORT).multithreaded().run_async();
-    internal_app.port(INTERNAL_PORT).multithreaded().run();
+    std::future<void> app_future = app.port(ENV("PORT").value.integer).multithreaded().run_async();
+    internal_app.port(ENV("INTERNAL_PORT").value.integer).multithreaded().run();
 
     return 0;
 }

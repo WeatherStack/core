@@ -79,15 +79,49 @@ namespace WS_Core {
         };
         typedef struct Arg Arg;
 
+        struct Value {
+            Arg::Default value;
+            Type type;
+            bool using_default; // Only used when fetching
+            bool success; // Only used when not
+                          // using defaults
+        };
+        typedef struct Value Value;
+
         // Probably shouldn't use a vector here
         std::vector<Arg> args;
         // Also probably shouldn't use a map here
-        std::map<const char*, Arg::Default> values;
+        std::map<const char*, Value> values;
 
         /// @brief Parse arguments
         /// @param argc Argument count
         /// @param argv Argument values
         /// @return Success or not
         bool parse_args(int argc, char* const argv[]);
+
+        /// @brief Attempts to get the value
+        /// @param key The key
+        /// @param def The default value as a backup
+        /// @return The found (or default) value
+        Value get_value(const char* key, Value def);
+
+        /// @brief Attempts to get the value
+        /// @param key The key
+        /// @warning Only use this if you know for certain
+        ///          that there is a vaue
+        /// @return The found value
+        Value get_value(const char* key);
+
+        /// @brief Sets a value
+        /// @param key The key
+        /// @param val The value
+        /// @param type the type
+        void set_value(const char* key, Arg::Default val, Type type);
+
+        void set_value(const char* key, bool flag);
+        void set_value(const char* key, int val, bool port);
+        void set_value(const char* key, const char* string, bool path);
+        void set_value(const char* key, float flt);
+        void set_value(const char* key, double dbl);
     }
 }
