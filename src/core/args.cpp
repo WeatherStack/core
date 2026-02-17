@@ -77,7 +77,7 @@ bool remove_first(const char* o, char* n) {
     #endif
 }
 
-Args::Arg* find_arg(const char* name) {
+bool find_arg(const char* name, Args::Arg* out) {
     // Check if it either begins with the long
     // or short argument thing
     // and because Windows just has to be unique
@@ -89,7 +89,8 @@ Args::Arg* find_arg(const char* name) {
     if(arg == NULL) {
         // If arg is NULL, remove_first just didn't
         // like it
-        return NULL;
+        out = NULL;
+        return false;
     }
 
     for(int i = 0; i < Args::args.size(); i++) {
@@ -108,18 +109,55 @@ Args::Arg* find_arg(const char* name) {
             is_arg = true;
         }
     #endif
-
         if(is_arg) {
-
+            free(arg);
+            memcpy(out, &Args::args[i], sizeof(Args::Arg));
+            return true;
         }
     }
 
     free(arg);
+    out = NULL;
+    return NULL;
 }
 
 bool Args::parse_args(int argc, char* const argv[]) {
+    Arg current_arg;
+    
     for(int i = 1; i < argc; i++) {
+        if(find_arg(argv[i], &current_arg)) {
+            switch(Args::args[i].arg_type) {
+                case Args::Type::FLAG:
 
+                    break;
+                case Args::Type::INTEGER:
+                    
+                    break;
+                case Args::Type::STRING:
+
+                    break;
+                case Args::Type::FLOAT:
+
+                    break;
+                case Args::Type::DOUBLE:
+
+                    break;
+                case Args::Type::PATH:
+
+                    break;
+                case Args::Type::PORT:
+                    // This one is a little special
+                    // It needs checking to ensure
+                    // that it is within valid port
+                    // ranges
+                    // And isn't something silly
+                    break;
+            }
+        } else {
+            // It couldn't find the argument
+            // Failed to parse arguments
+            return false;
+        }
     }
 }
 
@@ -129,7 +167,9 @@ Args::Value Args::get_value(const char* key, Args::Value def) {
         def.using_default = true;
         return def;
     } else {
-
+        Value val = Args::values[key];
+        val.using_default = false;
+        return val;
     }
 }
 

@@ -15,12 +15,31 @@ int main(int argc, char* const argv[]) {
     const int PORT = std::stoi(Utils::GetEnv("PORT", "8000"));
     const int INTERNAL_PORT = std::stoi(Utils::GetEnv("INTERNAL_PORT", "5000"));
 
+    // Set environment variables into arguments
     ENVS("PORT", PORT, true);
     ENVS("INTERNAL_PORT", INTERNAL_PORT, true);
 
     // Parse arguments
     // Arguments can (sometimes) override environment variables
     Args::parse_args(argc, argv);
+
+    // Before doing anything, check to see some basic flags
+    // --version, -v        Display version information
+    // --help, -h           Display very basic help information
+    if(ENV("VERSION").value.flag) {
+        printf(
+            "WeatherStack Core - Version %d.%d.%d\n",
+            VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH
+        );
+
+        return 0;
+    }
+
+    if(ENV("HELP").value.flag) {
+        // Display basic help information
+        
+        return 0;
+    }
 
     // Create Crow app
     crow::SimpleApp app;
