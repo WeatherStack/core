@@ -28,7 +28,71 @@ using namespace WS_Core;
 */
 
 namespace WS_Core::Args {
-    std::vector<Arg> args;
+    std::vector<Arg> args = {
+        Arg {
+            .name = "External Port",
+            .desc = "The external port",
+
+            .internal_name = "PORT",
+
+            .def = {
+                .integer = 8080
+            },
+
+            .ranges = {
+                .integer = {
+                    .min = 255,
+                    .max = 65535
+                }
+            },
+            .has_range = true,
+
+            .arg_long = "port",
+            .arg_short = "p",
+
+            .arg_type = Type::PORT
+        },
+        Arg {
+            .name = "Internal Port",
+            .desc = "The internal port",
+
+            .internal_name = "INTERNAL_PORT",
+
+            .def = {
+                .integer = 5000
+            },
+
+            .ranges = {
+                .integer = {
+                    .min = 255,
+                    .max = 65535
+                }
+            },
+            .has_range = true,
+
+            .arg_long = "port",
+            .arg_short = "Ip",
+
+            .arg_type = Type::PORT
+        },
+        Arg {
+            .name = "Version",
+            .desc = "Display version information",
+
+            .internal_name = "VERSION",
+
+            .def = {
+                .flag = false
+            },
+
+            .has_range = false,
+
+            .arg_long = "version",
+            .arg_short = "v",
+
+            .arg_type = TYPE::FLAG
+        }
+    };
     std::map<const char*, Value> values;
 }
 
@@ -236,6 +300,15 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     int port = std::atoi(argv[i + 1]);
 
                     // Do checks
+                    if(port <= 255 && port >= 65535) {
+                        Args::set_value(
+                            current_arg.internal_name,
+                            port,
+                            true
+                        );
+                    } else {
+                        // Error, invalid port
+                    }
                     
                     i++;
                     break;

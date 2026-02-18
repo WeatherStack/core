@@ -1,6 +1,7 @@
 #include <crow.h>
 #include <ws_core/ws.h>
 #include <ws_core/utils.h>
+#include <ws_core/help.h>
 #include <ws_core/types/args.h>
 
 /*
@@ -56,6 +57,7 @@ int main(int argc, char* const argv[]) {
 
     if(ENV("HELP").value.flag) {
         // Display basic help information
+        Help::print_usage_info();
 
         //return 0;
     }
@@ -83,6 +85,8 @@ int main(int argc, char* const argv[]) {
 
         return response;
     });
+
+    printf("Binding to %d and %d\n", ENV("PORT").value.integer, ENV("INTERNAL_PORT").value.integer);
 
     // Begin listening
     std::future<void> app_future = app.port(ENV("PORT").value.integer).multithreaded().run_async();
