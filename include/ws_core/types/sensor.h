@@ -44,9 +44,9 @@ enum WS_CORE_SENSOR_TYPE {
 typedef enum WS_CORE_SENSOR_TYPE WS_CORE_SENSOR_TYPE;
 
 /// @brief String array for WS_CORE_SENSOR_TYPE_LIST
-const char* WS_CORE_SENSOR_TYPE_STRINGS[] = {
+/*const char* WS_CORE_SENSOR_TYPE_STRINGS[] = {
     WS_CORE_SENSOR_TYPE_LIST(TO_STR)
-};
+};*/
 
 /// @brief WeatherStack core sensor structure
 struct WS_Core_Sensor {

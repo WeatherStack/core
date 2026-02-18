@@ -40,7 +40,7 @@ int main(int argc, char* const argv[]) {
 
     // Parse arguments
     // Arguments can (sometimes) override environment variables
-    Args::parse_args(argc, argv);
+    //Args::parse_args(argc, argv);
 
     // Before doing anything, check to see some basic flags
     // --version, -v        Display version information
@@ -51,13 +51,13 @@ int main(int argc, char* const argv[]) {
             VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH
         );
 
-        return 0;
+        //return 0;
     }
 
     if(ENV("HELP").value.flag) {
         // Display basic help information
 
-        return 0;
+        //return 0;
     }
 
     // Create Crow app
@@ -70,9 +70,25 @@ int main(int argc, char* const argv[]) {
         return res;
     });
 
+    // Internal information API route
+    CROW_ROUTE(internal_app, "/").methods(crow::HTTPMethod::GET)([](const crow::request& req) {
+        crow::json::wvalue response;
+        response["version"] = STR(VERSION_MAJOR) "." STR(VERSION_MINOR) "." STR(VERSION_PATCH);
+        response["name"] = "WeatherStack Core Internal API";
+        response["repository"] = "https://github.com/WeatherStack/Core";
+        response["message"] = "Number 5 is alive!";
+
+        response["success"] = true;
+        response["code"] = 200;
+
+        return response;
+    });
+
     // Begin listening
     std::future<void> app_future = app.port(ENV("PORT").value.integer).multithreaded().run_async();
     internal_app.port(ENV("INTERNAL_PORT").value.integer).multithreaded().run();
+
+    /// @todo Add something here so that the above internal API can run async
 
     return 0;
 }

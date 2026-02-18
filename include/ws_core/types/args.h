@@ -24,9 +24,9 @@ namespace WS_Core {
         };
         typedef enum Type type;
 
-        const char* TypeNames[] = {
+        /*const char* TypeNames[] = {
             WS_CORE_ARG_TYPE(TO_STR)
-        };
+        };*/
 
         struct Arg {
             const char* name;
@@ -89,9 +89,9 @@ namespace WS_Core {
         typedef struct Value Value;
 
         // Probably shouldn't use a vector here
-        std::vector<Arg> args;
+        extern std::vector<Arg> args;
         // Also probably shouldn't use a map here
-        std::map<const char*, Value> values;
+        extern std::map<const char*, Value> values;
 
         /// @brief Parse arguments
         /// @param argc Argument count

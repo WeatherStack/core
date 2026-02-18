@@ -27,6 +27,11 @@ using namespace WS_Core;
     Args::parse_args does most of the work
 */
 
+namespace WS_Core::Args {
+    std::vector<Arg> args;
+    std::map<const char*, Value> values;
+}
+
 void str_to_lower(const char* o, char* n) {
     strcpy(n, o);
     for(int i = 0; i < strlen(n); i++) {

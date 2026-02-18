@@ -1,8 +1,8 @@
 #pragma once
 
-#define VERSION_MAJOR (1)
-#define VERSION_MINOR (0)
-#define VERSION_PATCH (0)
+#define VERSION_MAJOR 1
+#define VERSION_MINOR 0
+#define VERSION_PATCH 0
 
 // Windows likes to be unique
 #if defined(_WIN32) || defined(_WIN64)
