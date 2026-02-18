@@ -14,10 +14,12 @@
     but can be released publicly with some configuration changes.
 
     Visit the documentation here:
-    https://weatherstack.wtdawson.info/docs/core/
+        https://weatherstack.wtdawson.info/docs/core/
 
-    If there's ever doxygen stuff, it'll probably be here:
-    https://weatherstack.wtdawson.info/core_reference/
+    Doxygen documentation (for reference):
+        https://ws-core-ref.wtdawson.info/
+    NOTE: Doxygen only actually gets generated either
+          manually, or by pushing to the master branch
 */
 
 using namespace WS_Core;
