@@ -115,7 +115,7 @@ SEARCHENGINE            = NO
 
 FULL_PATH_NAMES         = YES
 
-OUTPUT_DIRECTORY        = /docs
-INPUT                   = /
-EXCLUDE                 = /build
+OUTPUT_DIRECTORY        = docs
+INPUT                   = include, src
+EXCLUDE                 = build
 RECURSIVE               = YES
