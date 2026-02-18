@@ -142,7 +142,6 @@ bool Args::parse_args(int argc, char* const argv[]) {
         if(find_arg(argv[i], &current_arg)) {
             switch(Args::args[i].arg_type) {
                 case Args::Type::FLAG:
-                    /// @todo Flag implementation
                     if(i > argc - 1) {
                         // Check to see if it is a form of boolean
                         if(str_is_bool(argv[i + 1])) {
@@ -152,8 +151,15 @@ bool Args::parse_args(int argc, char* const argv[]) {
                                 current_arg.internal_name,
                                 val
                             );
+
+                            i++;
                         }
                     }
+
+                    // Maybe in the future warn the user
+                    // that specifying a flag that is by
+                    // default true, without specifying
+                    // false will do nothing
 
                     Args::set_value(
                         current_arg.internal_name,
@@ -223,6 +229,15 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     // And isn't something silly
 
                     /// @todo Port implementation
+                    if(i == argc - 1) {
+                        // Invalid arguments
+                        return false;
+                    }
+                    int port = std::atoi(argv[i + 1]);
+
+                    // Do checks
+                    
+                    i++;
                     break;
             }
         } else {
