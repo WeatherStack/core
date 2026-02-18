@@ -43,12 +43,21 @@ bool str_to_bool(const char* str) {
     char* lower = (char*)malloc(sizeof(str));
     str_to_lower(str, lower);
     if(strcmp(lower, "on") == 1 ||
-        strcmp(lower, "true")) {
+        strcmp(lower, "true") == 1) {
         return true;
     } else if(strcmp(lower, "off") == 1 ||
-        strcmp(lower, "false")) {
+        strcmp(lower, "false") == 1) {
         return false;
     }
+}
+
+bool str_is_bool(const char* str) {
+    char* lower = (char*)malloc(sizeof(str));
+    str_to_lower(str, lower);
+    return strcmp(lower, "on") == 1 ||
+        strcmp(lower, "true") == 1 ||
+        strcmp(lower, "off") == 1 ||
+        strcmp(lower, "false") == 1;
 }
 
 bool starts_with(const char* prefix, const char* str) {
@@ -134,6 +143,22 @@ bool Args::parse_args(int argc, char* const argv[]) {
             switch(Args::args[i].arg_type) {
                 case Args::Type::FLAG:
                     /// @todo Flag implementation
+                    if(i > argc - 1) {
+                        // Check to see if it is a form of boolean
+                        if(str_is_bool(argv[i + 1])) {
+                            bool val = str_to_bool(argv[i + 1]);
+
+                            Args::set_value(
+                                current_arg.internal_name,
+                                val
+                            );
+                        }
+                    }
+
+                    Args::set_value(
+                        current_arg.internal_name,
+                        true
+                    );
                     break;
                 case Args::Type::INTEGER:
                     if(i == argc - 1) {
@@ -141,7 +166,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                         return false;
                     }
                     Args::set_value(
-                        Args::args[i].internal_name,
+                        current_arg.internal_name,
                         std::atoi(argv[i + 1]),
                         false
                     );
@@ -153,7 +178,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                         return false;
                     }
                     Args::set_value(
-                        Args::args[i].internal_name,
+                        current_arg.internal_name,
                         argv[i + 1],
                         false
                     );
@@ -165,7 +190,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                         return false;
                     }
                     Args::set_value(
-                        Args::args[i].internal_name,
+                        current_arg.internal_name,
                         std::atof(argv[i + 1]),
                         false
                     );
@@ -177,7 +202,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                         return false;
                     }
                     Args::set_value(
-                        Args::args[i].internal_name,
+                        current_arg.internal_name,
                         std::atof(argv[i + 1]),
                         false
                     );

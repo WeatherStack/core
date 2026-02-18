@@ -40,7 +40,7 @@ int main(int argc, char* const argv[]) {
 
     // Parse arguments
     // Arguments can (sometimes) override environment variables
-    //Args::parse_args(argc, argv);
+    Args::parse_args(argc, argv);
 
     // Before doing anything, check to see some basic flags
     // --version, -v        Display version information
