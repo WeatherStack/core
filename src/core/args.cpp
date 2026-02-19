@@ -28,7 +28,7 @@ using namespace WS_Core;
 */
 
 namespace WS_Core::Args {
-    std::vector<Arg> args = {
+    std::array<Arg, 3> args = {
         Arg {
             .name = "External Port",
             .desc = "The external port",
@@ -90,7 +90,7 @@ namespace WS_Core::Args {
             .arg_long = "version",
             .arg_short = "v",
 
-            .arg_type = TYPE::FLAG
+            .arg_type = Type::FLAG
         }
     };
     std::map<const char*, Value> values;
@@ -204,7 +204,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
     
     for(int i = 1; i < argc; i++) {
         if(find_arg(argv[i], &current_arg)) {
-            switch(Args::args[i].arg_type) {
+            switch(current_arg.arg_type) {
                 case Args::Type::FLAG:
                     if(i > argc - 1) {
                         // Check to see if it is a form of boolean
@@ -361,6 +361,7 @@ void Args::set_value(const char* key, int val, bool port) {
 
 void Args::set_value(const char* key, const char* string, bool path) {
     Arg::Default val;
+    val.string = (char*)malloc(sizeof(string));
     strcpy(val.string, string);
     Args::set_value(key, val, path ? Type::PATH : Type::STRING);
 }

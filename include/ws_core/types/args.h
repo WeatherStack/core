@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <array>
 #include <map>
 #include <stdint.h>
 #include <ws_core/macros.h>
@@ -89,7 +89,7 @@ namespace WS_Core {
         typedef struct Value Value;
 
         // Probably shouldn't use a vector here
-        extern std::vector<Arg> args;
+        extern std::array<Arg, 3> args;
         // Also probably shouldn't use a map here
         extern std::map<const char*, Value> values;
 
