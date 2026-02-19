@@ -3,14 +3,9 @@
 # Linux build script for WeatherStack Core (SHELL script)
 # -------------------------------------------------------
 # Options:
-#   build_linux.sh "path/to/build" Debug/Release "path/to/vcpkg/toolchain/file.cmake"
+#   build_linux.sh "path/to/build" Debug/Release
 # Example:
-#   build_linux.sh build Debug "path/to/vcpkg/toolchain/file.cmake"
-
-if [ -z "$1" ]; then
-    echo "$1 is not a path"
-    exit 1
-fi
+#   build_linux.sh build Debug
 
 if [ "$2" != "Debug" ] && [ "$2" != "Release"]; then
     echo "$2 must be either Debug or Release"
