@@ -4,8 +4,15 @@
 #include <map>
 #include <stdint.h>
 #include <ws_core/macros.h>
+#include <cstring>
 
 // Cool argument types
+
+struct compare_strings {
+    bool operator()(const char* a, const char* b) const {
+        return strcmp(a, b) < 0;
+    }
+};
 
 // Use an X macro (https://en.wikipedia.org/wiki/X_macro) for ease
 #define WS_CORE_ARG_TYPE(X) \
@@ -91,7 +98,7 @@ namespace WS_Core {
         // Probably shouldn't use a vector here
         extern std::array<Arg, 3> args;
         // Also probably shouldn't use a map here
-        extern std::map<const char*, Value> values;
+        extern std::map<const char*, Value, compare_strings> values;
 
         /// @brief Parse arguments
         /// @param argc Argument count

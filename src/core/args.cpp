@@ -50,7 +50,7 @@ namespace WS_Core::Args {
             .arg_long = "port",
             .arg_short = "p",
 
-            .arg_type = Type::PORT
+            .arg_type = PORT
         },
         Arg {
             .name = "Internal Port",
@@ -73,7 +73,7 @@ namespace WS_Core::Args {
             .arg_long = "port",
             .arg_short = "Ip",
 
-            .arg_type = Type::PORT
+            .arg_type = PORT
         },
         Arg {
             .name = "Version",
@@ -90,10 +90,10 @@ namespace WS_Core::Args {
             .arg_long = "version",
             .arg_short = "v",
 
-            .arg_type = Type::FLAG
+            .arg_type = FLAG
         }
     };
-    std::map<const char*, Value> values;
+    std::map<const char*, Value, compare_strings> values;
 }
 
 void str_to_lower(const char* o, char* n) {
@@ -109,7 +109,9 @@ bool str_to_bool(const char* str) {
     if(strcmp(lower, "on") == 1 ||
         strcmp(lower, "true") == 1) {
         return true;
-    } else if(strcmp(lower, "off") == 1 ||
+    }
+    
+    if(strcmp(lower, "off") == 1 ||
         strcmp(lower, "false") == 1) {
         return false;
     }
@@ -205,7 +207,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
     for(int i = 1; i < argc; i++) {
         if(find_arg(argv[i], &current_arg)) {
             switch(current_arg.arg_type) {
-                case Args::Type::FLAG:
+                case FLAG:
                     if(i > argc - 1) {
                         // Check to see if it is a form of boolean
                         if(str_is_bool(argv[i + 1])) {
@@ -230,7 +232,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                         true
                     );
                     break;
-                case Args::Type::INTEGER:
+                case INTEGER:
                     if(i == argc - 1) {
                         // Invalid arguments
                         return false;
@@ -242,7 +244,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     );
                     i++;
                     break;
-                case Args::Type::STRING:
+                case STRING:
                     if(i == argc - 1) {
                         // Invalid arguments
                         return false;
@@ -254,7 +256,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     );
                     i++;
                     break;
-                case Args::Type::FLOAT:
+                case FLOAT:
                     if(i == argc - 1) {
                         // Invalid arguments
                         return false;
@@ -266,7 +268,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     );
                     i++;
                     break;
-                case Args::Type::DOUBLE:
+                case DOUBLE:
                     if(i == argc - 1) {
                         // Invalid arguments
                         return false;
@@ -278,14 +280,14 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     );
                     i++;
                     break;
-                case Args::Type::PATH:
+                case PATH:
                     // Need to check that the path is valid
                     // even if the file/directory it is pointed
                     // at does not exist
 
                     /// @todo Path implementation
                     break;
-                case Args::Type::PORT:
+                case PORT:
                     // This one is a little special
                     // It needs checking to ensure
                     // that it is within valid port
@@ -297,7 +299,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                         // Invalid arguments
                         return false;
                     }
-                    int port = std::atoi(argv[i + 1]);
+                    auto port = strtol(argv[i + 1], nullptr, 10);
 
                     // Do checks
                     if(port <= 255 && port >= 65535) {
@@ -319,23 +321,25 @@ bool Args::parse_args(int argc, char* const argv[]) {
             return false;
         }
     }
+
+    return true;
 }
 
-Args::Value Args::get_value(const char* key, Args::Value def) {
-    auto i = Args::values.find(key);
-    if(i == Args::values.end()) {
+Args::Value Args::get_value(const char* key, Value def) {
+    auto i = values.find(key);
+    if(i == values.end()) {
         def.using_default = true;
         return def;
     } else {
-        Value val = Args::values[key];
+        Value val = values[key];
         val.using_default = false;
         return val;
     }
 }
 
 Args::Value Args::get_value(const char* key) {
-    auto i = Args::values.find(key);
-    if(i == Args::values.end()) {
+    auto i = values.find(key);
+    if(i == values.end()) {
         Args::Value val;
         val.success = false;
         return val;
@@ -343,37 +347,37 @@ Args::Value Args::get_value(const char* key) {
 }
 
 void Args::set_value(const char* key, Arg::Default val, Type type) {
-    Args::values[key].value = val;
-    Args::values[key].type = type;
+    values[key].value = val;
+    values[key].type = type;
 }
 
 void Args::set_value(const char* key, bool flag) {
     Arg::Default val;
     val.flag = flag;
-    Args::set_value(key, val, Type::FLAG);
+    set_value(key, val, Type::FLAG);
 }
 
 void Args::set_value(const char* key, int val, bool port) {
     Arg::Default _val;
     _val.integer = val;
-    Args::set_value(key, _val, port ? Type::PORT : Type::INTEGER);
+    set_value(key, _val, port ? Type::PORT : Type::INTEGER);
 }
 
 void Args::set_value(const char* key, const char* string, bool path) {
     Arg::Default val;
     val.string = (char*)malloc(sizeof(string));
     strcpy(val.string, string);
-    Args::set_value(key, val, path ? Type::PATH : Type::STRING);
+    set_value(key, val, path ? Type::PATH : Type::STRING);
 }
 
 void Args::set_value(const char* key, float flt) {
     Arg::Default val;
     val.flt = flt;
-    Args::set_value(key, val, Type::FLOAT);
+    set_value(key, val, Type::FLOAT);
 }
 
 void Args::set_value(const char* key, double dbl) {
     Arg::Default val;
     val.dbl = dbl;
-    Args::set_value(key, val, Type::DOUBLE);
+    set_value(key, val, Type::DOUBLE);
 }
