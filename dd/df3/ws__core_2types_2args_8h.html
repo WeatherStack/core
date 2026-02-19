@@ -63,15 +63,17 @@ $(function(){initNavTree('dd/df3/ws__core_2types_2args_8h.html','../../',''); })
   <div class="headertitle"><div class="title">args.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../de/d3c/macros_8h_source.html">ws_core/macros.h</a>&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
 </div>
 <p><a href="../../dd/df3/ws__core_2types_2args_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:compare_5Fstrings" id="r_compare_5Fstrings"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d2b/structcompare__strings.html">compare_strings</a></td></tr>
 <tr class="memitem:WS_5FCore_3A_3AArgs_3A_3AArg" id="r_WS_5FCore_3A_3AArgs_3A_3AArg"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">WS_Core::Args::Arg</a></td></tr>
 <tr class="memitem:WS_5FCore_3A_3AArgs_3A_3AArg_3A_3ADefault" id="r_WS_5FCore_3A_3AArgs_3A_3AArg_3A_3ADefault"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d01/unionWS__Core_1_1Args_1_1Arg_1_1Default.html">WS_Core::Args::Arg::Default</a></td></tr>
 <tr class="memitem:WS_5FCore_3A_3AArgs_3A_3AArg_3A_3ARanges" id="r_WS_5FCore_3A_3AArgs_3A_3AArg_3A_3ARanges"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd3/unionWS__Core_1_1Args_1_1Arg_1_1Ranges.html">WS_Core::Args::Arg::Ranges</a></td></tr>
@@ -117,9 +119,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:adcfb933d5c8dc7c9a7621f677c6548ee" id="r_adcfb933d5c8dc7c9a7621f677c6548ee"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/namespaceWS__Core_1_1Args.html#adcfb933d5c8dc7c9a7621f677c6548ee">WS_Core::Args::TypeNames</a> []</td></tr>
-<tr class="memitem:a9e14bc4aea98bff03c35630e02b43034" id="r_a9e14bc4aea98bff03c35630e02b43034"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">Arg</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9e14bc4aea98bff03c35630e02b43034">WS_Core::Args::args</a></td></tr>
-<tr class="memitem:a9861d8b8ffe98a9622d0ef1603b74de9" id="r_a9861d8b8ffe98a9622d0ef1603b74de9"><td class="memItemLeft" align="right" valign="top">std::map&lt; const char *, <a class="el" href="../../d0/de8/structWS__Core_1_1Args_1_1Value.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9861d8b8ffe98a9622d0ef1603b74de9">WS_Core::Args::values</a></td></tr>
+<tr class="memitem:a9dea436ec51ae100371852a71ee92de6" id="r_a9dea436ec51ae100371852a71ee92de6"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">Arg</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">WS_Core::Args::args</a></td></tr>
+<tr class="memitem:a8364504938c6954566a00c242c03c040" id="r_a8364504938c6954566a00c242c03c040"><td class="memItemLeft" align="right" valign="top">std::map&lt; const char *, <a class="el" href="../../d0/de8/structWS__Core_1_1Args_1_1Value.html">Value</a>, <a class="el" href="../../da/d2b/structcompare__strings.html">compare_strings</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/namespaceWS__Core_1_1Args.html#a8364504938c6954566a00c242c03c040">WS_Core::Args::values</a></td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a9f545fa39b3f66973fb637028c5d6e09" name="a9f545fa39b3f66973fb637028c5d6e09"></a>
@@ -144,15 +145,15 @@ Variables</h2></td></tr>
 <div class="line">    X(PATH)                 \</div>
 <div class="line">    X(PORT)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../dd/df3/ws__core_2types_2args_8h_source.html#l00011">11</a> of file <a class="el" href="../../dd/df3/ws__core_2types_2args_8h_source.html">args.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span><span class="preprocessor">#define WS_CORE_ARG_TYPE(X) \</span></div>
-<div class="line"><span class="lineno">   12</span><span class="preprocessor">    X(FLAG)                 \</span></div>
-<div class="line"><span class="lineno">   13</span><span class="preprocessor">    X(INTEGER)              \</span></div>
-<div class="line"><span class="lineno">   14</span><span class="preprocessor">    X(STRING)               \</span></div>
-<div class="line"><span class="lineno">   15</span><span class="preprocessor">    X(FLOAT)                \</span></div>
-<div class="line"><span class="lineno">   16</span><span class="preprocessor">    X(DOUBLE)               \</span></div>
-<div class="line"><span class="lineno">   17</span><span class="preprocessor">    X(PATH)                 \</span></div>
-<div class="line"><span class="lineno">   18</span><span class="preprocessor">    X(PORT)</span></div>
+<p class="definition">Definition at line <a class="el" href="../../dd/df3/ws__core_2types_2args_8h_source.html#l00018">18</a> of file <a class="el" href="../../dd/df3/ws__core_2types_2args_8h_source.html">args.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   18</span><span class="preprocessor">#define WS_CORE_ARG_TYPE(X) \</span></div>
+<div class="line"><span class="lineno">   19</span><span class="preprocessor">    X(FLAG)                 \</span></div>
+<div class="line"><span class="lineno">   20</span><span class="preprocessor">    X(INTEGER)              \</span></div>
+<div class="line"><span class="lineno">   21</span><span class="preprocessor">    X(STRING)               \</span></div>
+<div class="line"><span class="lineno">   22</span><span class="preprocessor">    X(FLOAT)                \</span></div>
+<div class="line"><span class="lineno">   23</span><span class="preprocessor">    X(DOUBLE)               \</span></div>
+<div class="line"><span class="lineno">   24</span><span class="preprocessor">    X(PATH)                 \</span></div>
+<div class="line"><span class="lineno">   25</span><span class="preprocessor">    X(PORT)</span></div>
 </div><!-- fragment -->
 </div>
 </div>

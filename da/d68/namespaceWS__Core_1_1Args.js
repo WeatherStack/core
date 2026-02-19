@@ -15,7 +15,6 @@ var namespaceWS__Core_1_1Args =
     [ "set_value", "da/d68/namespaceWS__Core_1_1Args.html#a974f0f19676b293a03bded993562a494", null ],
     [ "set_value", "da/d68/namespaceWS__Core_1_1Args.html#ab16196ae7fa0b0c9b8de1685762c49fb", null ],
     [ "set_value", "da/d68/namespaceWS__Core_1_1Args.html#aee29f9c178c958717df9cb73865cc8c4", null ],
-    [ "args", "da/d68/namespaceWS__Core_1_1Args.html#a9e14bc4aea98bff03c35630e02b43034", null ],
-    [ "TypeNames", "da/d68/namespaceWS__Core_1_1Args.html#adcfb933d5c8dc7c9a7621f677c6548ee", null ],
-    [ "values", "da/d68/namespaceWS__Core_1_1Args.html#a9861d8b8ffe98a9622d0ef1603b74de9", null ]
+    [ "args", "da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6", null ],
+    [ "values", "da/d68/namespaceWS__Core_1_1Args.html#a8364504938c6954566a00c242c03c040", null ]
 ];
