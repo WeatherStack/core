@@ -67,6 +67,7 @@ $(function(){initNavTree('da/d7d/args_8cpp.html','../../',''); });
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d6/d17/ws__core_2ws_8h_source.html">ws_core/ws.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../dd/df3/ws__core_2types_2args_8h_source.html">ws_core/types/args.h</a>&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div>
 <p><a href="../../da/d7d/args_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -104,57 +105,57 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00160">160</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  160</span>                                              {</div>
-<div class="line"><span class="lineno">  161</span>    <span class="comment">// Check if it either begins with the long</span></div>
-<div class="line"><span class="lineno">  162</span>    <span class="comment">// or short argument thing</span></div>
-<div class="line"><span class="lineno">  163</span>    <span class="comment">// and because Windows just has to be unique</span></div>
-<div class="line"><span class="lineno">  164</span>    <span class="comment">// just check both on Windows</span></div>
-<div class="line"><span class="lineno">  165</span> </div>
-<div class="line"><span class="lineno">  166</span>    <span class="keywordtype">char</span>* arg = (<span class="keywordtype">char</span>*)malloc(<span class="keyword">sizeof</span>(name));</div>
-<div class="line"><span class="lineno">  167</span>    <span class="keywordtype">bool</span> kind = <a class="code hl_function" href="#a5abf93b937f84b71294bf39369b894ac">remove_first</a>(name, arg);</div>
-<div class="line"><span class="lineno">  168</span> </div>
-<div class="line"><span class="lineno">  169</span>    <span class="keywordflow">if</span>(arg == NULL) {</div>
-<div class="line"><span class="lineno">  170</span>        <span class="comment">// If arg is NULL, remove_first just didn&#39;t</span></div>
-<div class="line"><span class="lineno">  171</span>        <span class="comment">// like it</span></div>
-<div class="line"><span class="lineno">  172</span>        out = NULL;</div>
-<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  174</span>    }</div>
-<div class="line"><span class="lineno">  175</span> </div>
-<div class="line"><span class="lineno">  176</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">Args::args</a>.size(); i++) {</div>
-<div class="line"><span class="lineno">  177</span>        <span class="keywordtype">bool</span> is_arg = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  178</span><span class="preprocessor">    #if defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><span class="lineno">  179</span>        <span class="comment">// Completely discard &quot;kind&quot;</span></div>
-<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">if</span>(strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">Args::args</a>[i].arg_long, name) == 1 ||</div>
-<div class="line"><span class="lineno">  181</span>            strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">Args::args</a>[i].arg_short, name) == 1) {</div>
-<div class="line"><span class="lineno">  182</span>            is_arg = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  183</span>        }</div>
-<div class="line"><span class="lineno">  184</span><span class="preprocessor">    #else</span></div>
-<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">if</span>(kind &amp;&amp;</div>
-<div class="line"><span class="lineno">  186</span>            strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">Args::args</a>[i].arg_long, name) == 1) {</div>
-<div class="line"><span class="lineno">  187</span>            is_arg = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  188</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">Args::args</a>[i].arg_short, name) == 1) {</div>
-<div class="line"><span class="lineno">  189</span>            is_arg = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  190</span>        }</div>
-<div class="line"><span class="lineno">  191</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  192</span>        <span class="keywordflow">if</span>(is_arg) {</div>
-<div class="line"><span class="lineno">  193</span>            free(arg);</div>
-<div class="line"><span class="lineno">  194</span>            memcpy(out, &amp;<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">Args::args</a>[i], <span class="keyword">sizeof</span>(<a class="code hl_struct" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">Args::Arg</a>));</div>
-<div class="line"><span class="lineno">  195</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  196</span>        }</div>
-<div class="line"><span class="lineno">  197</span>    }</div>
-<div class="line"><span class="lineno">  198</span> </div>
-<div class="line"><span class="lineno">  199</span>    free(arg);</div>
-<div class="line"><span class="lineno">  200</span>    out = NULL;</div>
-<div class="line"><span class="lineno">  201</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  202</span>}</div>
-<div class="ttc" id="aargs_8cpp_html_a5abf93b937f84b71294bf39369b894ac"><div class="ttname"><a href="#a5abf93b937f84b71294bf39369b894ac">remove_first</a></div><div class="ttdeci">bool remove_first(const char *o, char *n)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00135">args.cpp:135</a></div></div>
-<div class="ttc" id="anamespaceWS__Core_1_1Args_html_a9dea436ec51ae100371852a71ee92de6"><div class="ttname"><a href="../../da/d68/namespaceWS__Core_1_1Args.html#a9dea436ec51ae100371852a71ee92de6">WS_Core::Args::args</a></div><div class="ttdeci">std::array&lt; Arg, 3 &gt; args</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00031">args.cpp:31</a></div></div>
-<div class="ttc" id="astructWS__Core_1_1Args_1_1Arg_html"><div class="ttname"><a href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">WS_Core::Args::Arg</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/df3/ws__core_2types_2args_8h_source.html#l00038">args.h:38</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00220">220</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  220</span>                                              {</div>
+<div class="line"><span class="lineno">  221</span>    <span class="comment">// Check if it either begins with the long</span></div>
+<div class="line"><span class="lineno">  222</span>    <span class="comment">// or short argument thing</span></div>
+<div class="line"><span class="lineno">  223</span>    <span class="comment">// and because Windows just has to be unique</span></div>
+<div class="line"><span class="lineno">  224</span>    <span class="comment">// just check both on Windows</span></div>
+<div class="line"><span class="lineno">  225</span> </div>
+<div class="line"><span class="lineno">  226</span>    <span class="keywordtype">char</span>* arg = (<span class="keywordtype">char</span>*)malloc(<span class="keyword">sizeof</span>(name));</div>
+<div class="line"><span class="lineno">  227</span>    <span class="keywordtype">bool</span> kind = <a class="code hl_function" href="#a5abf93b937f84b71294bf39369b894ac">remove_first</a>(name, arg);</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span>    <span class="keywordflow">if</span>(arg == NULL) {</div>
+<div class="line"><span class="lineno">  230</span>        <span class="comment">// If arg is NULL, remove_first just didn&#39;t</span></div>
+<div class="line"><span class="lineno">  231</span>        <span class="comment">// like it</span></div>
+<div class="line"><span class="lineno">  232</span>        out = NULL;</div>
+<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  234</span>    }</div>
+<div class="line"><span class="lineno">  235</span> </div>
+<div class="line"><span class="lineno">  236</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">Args::args</a>.size(); i++) {</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordtype">bool</span> is_arg = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  238</span><span class="preprocessor">    #if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><span class="lineno">  239</span>        <span class="comment">// Completely discard &quot;kind&quot;</span></div>
+<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">if</span>(strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">Args::args</a>[i].arg_long, name) == 1 ||</div>
+<div class="line"><span class="lineno">  241</span>            strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">Args::args</a>[i].arg_short, name) == 1) {</div>
+<div class="line"><span class="lineno">  242</span>            is_arg = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  243</span>        }</div>
+<div class="line"><span class="lineno">  244</span><span class="preprocessor">    #else</span></div>
+<div class="line"><span class="lineno">  245</span>        <span class="keywordflow">if</span>(kind &amp;&amp;</div>
+<div class="line"><span class="lineno">  246</span>            strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">Args::args</a>[i].arg_long, name) == 1) {</div>
+<div class="line"><span class="lineno">  247</span>            is_arg = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  248</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">Args::args</a>[i].arg_short, name) == 1) {</div>
+<div class="line"><span class="lineno">  249</span>            is_arg = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  250</span>        }</div>
+<div class="line"><span class="lineno">  251</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  252</span>        <span class="keywordflow">if</span>(is_arg) {</div>
+<div class="line"><span class="lineno">  253</span>            free(arg);</div>
+<div class="line"><span class="lineno">  254</span>            memcpy(out, &amp;<a class="code hl_variable" href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">Args::args</a>[i], <span class="keyword">sizeof</span>(<a class="code hl_struct" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">Args::Arg</a>));</div>
+<div class="line"><span class="lineno">  255</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  256</span>        }</div>
+<div class="line"><span class="lineno">  257</span>    }</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>    free(arg);</div>
+<div class="line"><span class="lineno">  260</span>    out = NULL;</div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  262</span>}</div>
+<div class="ttc" id="aargs_8cpp_html_a5abf93b937f84b71294bf39369b894ac"><div class="ttname"><a href="#a5abf93b937f84b71294bf39369b894ac">remove_first</a></div><div class="ttdeci">bool remove_first(const char *o, char *n)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00193">args.cpp:193</a></div></div>
+<div class="ttc" id="anamespaceWS__Core_1_1Args_html_a3783bc52bd7ef59574f9f74a48bb0db6"><div class="ttname"><a href="../../da/d68/namespaceWS__Core_1_1Args.html#a3783bc52bd7ef59574f9f74a48bb0db6">WS_Core::Args::args</a></div><div class="ttdeci">std::array&lt; Arg, 6 &gt; args</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00038">args.cpp:38</a></div></div>
+<div class="ttc" id="astructWS__Core_1_1Args_1_1Arg_html"><div class="ttname"><a href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html">WS_Core::Args::Arg</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/df3/ws__core_2types_2args_8h_source.html#l00039">args.h:39</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00031">WS_Core::Args::args</a>, and <a class="el" href="../../da/d7d/args_8cpp_source.html#l00135">remove_first()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00038">WS_Core::Args::args</a>, and <a class="el" href="../../da/d7d/args_8cpp_source.html#l00193">remove_first()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00204">WS_Core::Args::parse_args()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00264">WS_Core::Args::parse_args()</a>.</p>
 
 </div>
 </div>
@@ -177,38 +178,40 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  135</span>                                          {</div>
-<div class="line"><span class="lineno">  136</span><span class="preprocessor">    #if defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">if</span>(<a class="code hl_function" href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a834115adf8d4e00cbb601ad90f0bc8a7">WS_CLI_ARG_LONG_BEGIN</a>, o)) {</div>
-<div class="line"><span class="lineno">  138</span>        strcpy(n, o);</div>
-<div class="line"><span class="lineno">  139</span>        n++;</div>
-<div class="line"><span class="lineno">  140</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  141</span>        n = NULL;</div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  143</span>    }</div>
-<div class="line"><span class="lineno">  144</span><span class="preprocessor">    #else</span></div>
-<div class="line"><span class="lineno">  145</span>    <span class="keywordtype">bool</span> kind = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  146</span>    <span class="keywordflow">if</span>(<a class="code hl_function" href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a834115adf8d4e00cbb601ad90f0bc8a7">WS_CLI_ARG_LONG_BEGIN</a>, o)) {</div>
-<div class="line"><span class="lineno">  147</span>        kind = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  148</span>        strcpy(n, o);</div>
-<div class="line"><span class="lineno">  149</span>        n += 2;</div>
-<div class="line"><span class="lineno">  150</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_function" href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a06e4e3f66950afd7a3b89352de2377d2">WS_CLI_ARG_SHORT_BEGIN</a>, o)) {</div>
-<div class="line"><span class="lineno">  151</span>        strcpy(n, o);</div>
-<div class="line"><span class="lineno">  152</span>        n++;</div>
-<div class="line"><span class="lineno">  153</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  154</span>        n = NULL;</div>
-<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  156</span>    }</div>
-<div class="line"><span class="lineno">  157</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  158</span>}</div>
-<div class="ttc" id="aargs_8cpp_html_a61c36f390e98b73ecec412f6d6baa6eb"><div class="ttname"><a href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a></div><div class="ttdeci">bool starts_with(const char *prefix, const char *str)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00129">args.cpp:129</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00193">193</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  193</span>                                          {</div>
+<div class="line"><span class="lineno">  194</span><span class="preprocessor">    #if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><span class="lineno">  195</span>    <span class="keywordflow">if</span>(<a class="code hl_function" href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a834115adf8d4e00cbb601ad90f0bc8a7">WS_CLI_ARG_LONG_BEGIN</a>, o)) {</div>
+<div class="line"><span class="lineno">  196</span>        strcpy(n, o);</div>
+<div class="line"><span class="lineno">  197</span>        n++;</div>
+<div class="line"><span class="lineno">  198</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  199</span>        n = NULL;</div>
+<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  201</span>    }</div>
+<div class="line"><span class="lineno">  202</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  203</span><span class="preprocessor">    #else</span></div>
+<div class="line"><span class="lineno">  204</span>    <span class="keywordtype">bool</span> kind = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  205</span>    <span class="keywordflow">if</span>(<a class="code hl_function" href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a834115adf8d4e00cbb601ad90f0bc8a7">WS_CLI_ARG_LONG_BEGIN</a>, o)) {</div>
+<div class="line"><span class="lineno">  206</span>        kind = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  207</span>        strcpy(n, o);</div>
+<div class="line"><span class="lineno">  208</span>        n += 2;</div>
+<div class="line"><span class="lineno">  209</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_function" href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a06e4e3f66950afd7a3b89352de2377d2">WS_CLI_ARG_SHORT_BEGIN</a>, o)) {</div>
+<div class="line"><span class="lineno">  210</span>        strcpy(n, o);</div>
+<div class="line"><span class="lineno">  211</span>        n++;</div>
+<div class="line"><span class="lineno">  212</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  213</span>        n = NULL;</div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  215</span>    }</div>
+<div class="line"><span class="lineno">  216</span>    <span class="keywordflow">return</span> kind;</div>
+<div class="line"><span class="lineno">  217</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  218</span>}</div>
+<div class="ttc" id="aargs_8cpp_html_a61c36f390e98b73ecec412f6d6baa6eb"><div class="ttname"><a href="#a61c36f390e98b73ecec412f6d6baa6eb">starts_with</a></div><div class="ttdeci">bool starts_with(const char *prefix, const char *str)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00187">args.cpp:187</a></div></div>
 <div class="ttc" id="aws__core_2ws_8h_html_a06e4e3f66950afd7a3b89352de2377d2"><div class="ttname"><a href="../../d6/d17/ws__core_2ws_8h.html#a06e4e3f66950afd7a3b89352de2377d2">WS_CLI_ARG_SHORT_BEGIN</a></div><div class="ttdeci">#define WS_CLI_ARG_SHORT_BEGIN</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d17/ws__core_2ws_8h_source.html#l00017">ws.h:17</a></div></div>
 <div class="ttc" id="aws__core_2ws_8h_html_a834115adf8d4e00cbb601ad90f0bc8a7"><div class="ttname"><a href="../../d6/d17/ws__core_2ws_8h.html#a834115adf8d4e00cbb601ad90f0bc8a7">WS_CLI_ARG_LONG_BEGIN</a></div><div class="ttdeci">#define WS_CLI_ARG_LONG_BEGIN</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d17/ws__core_2ws_8h_source.html#l00016">ws.h:16</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00129">starts_with()</a>, <a class="el" href="../../d6/d17/ws__core_2ws_8h_source.html#l00016">WS_CLI_ARG_LONG_BEGIN</a>, and <a class="el" href="../../d6/d17/ws__core_2ws_8h_source.html#l00017">WS_CLI_ARG_SHORT_BEGIN</a>.</p>
+<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00187">starts_with()</a>, <a class="el" href="../../d6/d17/ws__core_2ws_8h_source.html#l00016">WS_CLI_ARG_LONG_BEGIN</a>, and <a class="el" href="../../d6/d17/ws__core_2ws_8h_source.html#l00017">WS_CLI_ARG_SHORT_BEGIN</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00160">find_arg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00220">find_arg()</a>.</p>
 
 </div>
 </div>
@@ -231,12 +234,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00129">129</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  129</span>                                                      {</div>
-<div class="line"><span class="lineno">  130</span>    <span class="keywordflow">return</span> strstr(str, prefix) == str;</div>
-<div class="line"><span class="lineno">  131</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00187">187</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  187</span>                                                      {</div>
+<div class="line"><span class="lineno">  188</span>    <span class="keywordflow">return</span> strstr(str, prefix) == str;</div>
+<div class="line"><span class="lineno">  189</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00135">remove_first()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00193">remove_first()</a>.</p>
 
 </div>
 </div>
@@ -255,20 +258,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  120</span>                                  {</div>
-<div class="line"><span class="lineno">  121</span>    <span class="keywordtype">char</span>* lower = (<span class="keywordtype">char</span>*)malloc(<span class="keyword">sizeof</span>(str));</div>
-<div class="line"><span class="lineno">  122</span>    <a class="code hl_function" href="#a8171c28f53e918e0e90fdb026d93ccea">str_to_lower</a>(str, lower);</div>
-<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">return</span> strcmp(lower, <span class="stringliteral">&quot;on&quot;</span>) == 1 ||</div>
-<div class="line"><span class="lineno">  124</span>        strcmp(lower, <span class="stringliteral">&quot;true&quot;</span>) == 1 ||</div>
-<div class="line"><span class="lineno">  125</span>        strcmp(lower, <span class="stringliteral">&quot;off&quot;</span>) == 1 ||</div>
-<div class="line"><span class="lineno">  126</span>        strcmp(lower, <span class="stringliteral">&quot;false&quot;</span>) == 1;</div>
-<div class="line"><span class="lineno">  127</span>}</div>
-<div class="ttc" id="aargs_8cpp_html_a8171c28f53e918e0e90fdb026d93ccea"><div class="ttname"><a href="#a8171c28f53e918e0e90fdb026d93ccea">str_to_lower</a></div><div class="ttdeci">void str_to_lower(const char *o, char *n)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00099">args.cpp:99</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00178">178</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  178</span>                                  {</div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordtype">char</span>* lower = (<span class="keywordtype">char</span>*)malloc(<span class="keyword">sizeof</span>(str));</div>
+<div class="line"><span class="lineno">  180</span>    <a class="code hl_function" href="#a8171c28f53e918e0e90fdb026d93ccea">str_to_lower</a>(str, lower);</div>
+<div class="line"><span class="lineno">  181</span>    <span class="keywordflow">return</span> strcmp(lower, <span class="stringliteral">&quot;on&quot;</span>) == 1 ||</div>
+<div class="line"><span class="lineno">  182</span>        strcmp(lower, <span class="stringliteral">&quot;true&quot;</span>) == 1 ||</div>
+<div class="line"><span class="lineno">  183</span>        strcmp(lower, <span class="stringliteral">&quot;off&quot;</span>) == 1 ||</div>
+<div class="line"><span class="lineno">  184</span>        strcmp(lower, <span class="stringliteral">&quot;false&quot;</span>) == 1;</div>
+<div class="line"><span class="lineno">  185</span>}</div>
+<div class="ttc" id="aargs_8cpp_html_a8171c28f53e918e0e90fdb026d93ccea"><div class="ttname"><a href="#a8171c28f53e918e0e90fdb026d93ccea">str_to_lower</a></div><div class="ttdeci">void str_to_lower(const char *o, char *n)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/args_8cpp_source.html#l00157">args.cpp:157</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00099">str_to_lower()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00157">str_to_lower()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00204">WS_Core::Args::parse_args()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00264">WS_Core::Args::parse_args()</a>.</p>
 
 </div>
 </div>
@@ -287,24 +290,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00106">106</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  106</span>                                  {</div>
-<div class="line"><span class="lineno">  107</span>    <span class="keywordtype">char</span>* lower = (<span class="keywordtype">char</span>*)malloc(<span class="keyword">sizeof</span>(str));</div>
-<div class="line"><span class="lineno">  108</span>    <a class="code hl_function" href="#a8171c28f53e918e0e90fdb026d93ccea">str_to_lower</a>(str, lower);</div>
-<div class="line"><span class="lineno">  109</span>    <span class="keywordflow">if</span>(strcmp(lower, <span class="stringliteral">&quot;on&quot;</span>) == 1 ||</div>
-<div class="line"><span class="lineno">  110</span>        strcmp(lower, <span class="stringliteral">&quot;true&quot;</span>) == 1) {</div>
-<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  112</span>    }</div>
-<div class="line"><span class="lineno">  113</span>    </div>
-<div class="line"><span class="lineno">  114</span>    <span class="keywordflow">if</span>(strcmp(lower, <span class="stringliteral">&quot;off&quot;</span>) == 1 ||</div>
-<div class="line"><span class="lineno">  115</span>        strcmp(lower, <span class="stringliteral">&quot;false&quot;</span>) == 1) {</div>
-<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  117</span>    }</div>
-<div class="line"><span class="lineno">  118</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00164">164</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  164</span>                                  {</div>
+<div class="line"><span class="lineno">  165</span>    <span class="keywordtype">char</span>* lower = (<span class="keywordtype">char</span>*)malloc(<span class="keyword">sizeof</span>(str));</div>
+<div class="line"><span class="lineno">  166</span>    <a class="code hl_function" href="#a8171c28f53e918e0e90fdb026d93ccea">str_to_lower</a>(str, lower);</div>
+<div class="line"><span class="lineno">  167</span>    <span class="keywordflow">if</span>(strcmp(lower, <span class="stringliteral">&quot;on&quot;</span>) == 1 ||</div>
+<div class="line"><span class="lineno">  168</span>        strcmp(lower, <span class="stringliteral">&quot;true&quot;</span>) == 1) {</div>
+<div class="line"><span class="lineno">  169</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  170</span>    }</div>
+<div class="line"><span class="lineno">  171</span>    </div>
+<div class="line"><span class="lineno">  172</span>    <span class="keywordflow">if</span>(strcmp(lower, <span class="stringliteral">&quot;off&quot;</span>) == 1 ||</div>
+<div class="line"><span class="lineno">  173</span>        strcmp(lower, <span class="stringliteral">&quot;false&quot;</span>) == 1) {</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  175</span>    }</div>
+<div class="line"><span class="lineno">  176</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00099">str_to_lower()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/d7d/args_8cpp_source.html#l00157">str_to_lower()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00204">WS_Core::Args::parse_args()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00264">WS_Core::Args::parse_args()</a>.</p>
 
 </div>
 </div>
@@ -327,15 +330,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00099">99</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>                                          {</div>
-<div class="line"><span class="lineno">  100</span>    strcpy(n, o);</div>
-<div class="line"><span class="lineno">  101</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; strlen(n); i++) {</div>
-<div class="line"><span class="lineno">  102</span>        n[i] = tolower(o[i]);</div>
-<div class="line"><span class="lineno">  103</span>    }</div>
-<div class="line"><span class="lineno">  104</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00157">157</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  157</span>                                          {</div>
+<div class="line"><span class="lineno">  158</span>    strcpy(n, o);</div>
+<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; strlen(n); i++) {</div>
+<div class="line"><span class="lineno">  160</span>        n[i] = tolower(o[i]);</div>
+<div class="line"><span class="lineno">  161</span>    }</div>
+<div class="line"><span class="lineno">  162</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00120">str_is_bool()</a>, and <a class="el" href="../../da/d7d/args_8cpp_source.html#l00106">str_to_bool()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/args_8cpp_source.html#l00178">str_is_bool()</a>, and <a class="el" href="../../da/d7d/args_8cpp_source.html#l00164">str_to_bool()</a>.</p>
 
 </div>
 </div>
