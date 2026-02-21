@@ -3,6 +3,9 @@
 #include <ws_core/ws.h>
 #include <ws_core/types/args.h>
 
+// Debugging
+#include <iostream>
+
 using namespace WS_Core;
 
 /*
@@ -28,7 +31,11 @@ using namespace WS_Core;
 */
 
 namespace WS_Core::Args {
-    std::array<Arg, 3> args = {
+    const char* TypeNames[] = {
+        WS_CORE_ARG_TYPE(TO_STR)
+    };
+
+    std::array<Arg, 6> args = {
         Arg {
             .name = "External Port",
             .desc = "The external port",
@@ -91,6 +98,57 @@ namespace WS_Core::Args {
             .arg_short = "v",
 
             .arg_type = FLAG
+        },
+        Arg {
+            .name = "Help",
+            .desc = "Display usage information",
+
+            .internal_name = "HELP",
+
+            .def = {
+                .flag = false
+            },
+
+            .has_range = false,
+
+            .arg_long = "help",
+            .arg_short = "h",
+
+            .arg_type = FLAG
+        },
+        Arg {
+            .name = "Verbose",
+            .desc = "Display all information",
+
+            .internal_name = "VERBOSE",
+
+            .def = {
+                .flag = false
+            },
+
+            .has_range = false,
+
+            .arg_long = "verbose",
+            .arg_short = "vB",
+
+            .arg_type = FLAG
+        },
+        Arg {
+            .name = "Debug",
+            .desc = "Display debug information",
+
+            .internal_name = "DEBUG",
+
+            .def = {
+                .flag = false
+            },
+
+            .has_range = false,
+
+            .arg_long = "debug",
+            .arg_short = "d",
+
+            .arg_type = FLAG
         }
     };
     std::map<const char*, Value, compare_strings> values;
@@ -141,6 +199,7 @@ bool remove_first(const char* o, char* n) {
         n = NULL;
         return false;
     }
+    return false;
     #else
     bool kind = false;
     if(starts_with(WS_CLI_ARG_LONG_BEGIN, o)) {
@@ -154,6 +213,7 @@ bool remove_first(const char* o, char* n) {
         n = NULL;
         return false;
     }
+    return kind;
     #endif
 }
 
@@ -203,9 +263,20 @@ bool find_arg(const char* name, Args::Arg* out) {
 
 bool Args::parse_args(int argc, char* const argv[]) {
     Arg current_arg;
+
+    // Implement default values
+    for(int i = 0; i < args.size(); i++) {
+        values[args[i].internal_name] = Value {
+            .value = args[i].def,
+            .type = args[i].arg_type,
+            .using_default = true,
+            .success = true
+        };
+    }
     
     for(int i = 1; i < argc; i++) {
         if(find_arg(argv[i], &current_arg)) {
+            printf("%s %s\n", argv[i], TypeNames[current_arg.arg_type]);
             switch(current_arg.arg_type) {
                 case FLAG:
                     if(i > argc - 1) {
@@ -302,7 +373,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     auto port = strtol(argv[i + 1], nullptr, 10);
 
                     // Do checks
-                    if(port <= 255 && port >= 65535) {
+                    if(port >= 255 && port <= 65535) {
                         Args::set_value(
                             current_arg.internal_name,
                             port,
@@ -320,6 +391,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
             // Failed to parse arguments
             return false;
         }
+        printf("\n");
     }
 
     return true;
@@ -344,6 +416,9 @@ Args::Value Args::get_value(const char* key) {
         val.success = false;
         return val;
     }
+    Args::Value _val = i->second;
+    _val.success = true;
+    return _val;
 }
 
 void Args::set_value(const char* key, Arg::Default val, Type type) {
@@ -380,4 +455,36 @@ void Args::set_value(const char* key, double dbl) {
     Arg::Default val;
     val.dbl = dbl;
     set_value(key, val, Type::DOUBLE);
+}
+
+void Args::debug_log_values() {
+    printf("Current argument values:\n");
+    for(auto it = values.begin(); it != values.end(); it++) {
+        printf("%s\n\t", it->first);
+        printf("Type:    %d (%s)\n\t", it->second.type, TypeNames[it->second.type]);
+        printf("Value:   ");
+        switch(it->second.type) {
+            case FLAG:
+                printf(it->second.value.flag ? "true" : "false");
+                break;
+            case INTEGER:
+            case PORT:
+                printf("%d", it->second.value.integer);
+                break;
+            case STRING:
+            case PATH:
+                printf(it->second.value.string);
+                break;
+            case FLOAT:
+                printf("%d", it->second.value.flt);
+                break;
+            case DOUBLE:
+                printf("%d", it->second.value.dbl);
+                break;
+        }
+        printf("\n\tDefault: %s", it->second.using_default ? "true" : "false");
+        printf("\n\tSuccess: %s\n", it->second.success ? "true" : "false");
+
+        printf("\n");
+    }
 }

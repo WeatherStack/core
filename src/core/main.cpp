@@ -43,23 +43,26 @@ int main(int argc, char* const argv[]) {
     // Arguments can (sometimes) override environment variables
     Args::parse_args(argc, argv);
 
+    // Check for verbose/debug, output info if needed
+    Args::debug_log_values();
+
     // Before doing anything, check to see some basic flags
     // --version, -v        Display version information
     // --help, -h           Display very basic help information
-    if(ENV("VERSION").value.flag) {
+    if(ENV("VERSION").value.flag == true) {
         printf(
             "WeatherStack Core - Version %d.%d.%d\n",
             VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH
         );
 
-        //return 0;
+        return 0;
     }
 
-    if(ENV("HELP").value.flag) {
+    if(ENV("HELP").value.flag == true) {
         // Display basic help information
         Help::print_usage_info();
 
-        //return 0;
+        return 0;
     }
 
     // Create Crow app
@@ -85,8 +88,6 @@ int main(int argc, char* const argv[]) {
 
         return response;
     });
-
-    printf("Binding to %d and %d\n", ENV("PORT").value.integer, ENV("INTERNAL_PORT").value.integer);
 
     // Begin listening
     std::future<void> app_future = app.port(ENV("PORT").value.integer).multithreaded().run_async();

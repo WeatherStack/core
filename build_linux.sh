@@ -7,7 +7,9 @@
 # Example:
 #   build_linux.sh build Debug
 
-if [ "$2" != "Debug" ] && [ "$2" != "Release"]; then
+set -e
+
+if [ "$2" != "Debug" ] && [ "$2" != "Release" ]; then
     echo "$2 must be either Debug or Release"
     exit 1
 fi
@@ -17,17 +19,17 @@ if [ ! -d "$1" ]; then
     mkdir -p "$1" || { echo "Failed to create directory at $1"; exit 1; }
 fi
 
-cd $1
+cd "$1" || exit 1
 
-if [ "$2" = "Debug"]; then
+if [ "$2" = "Debug" ]; then
     echo "Building with Debug configuration"
 
-    cmake .. -CMAKE_BUILD_TYPE=Debug
+    cmake .. -DCMAKE_BUILD_TYPE=Debug
     cmake --build . -- -j$(nproc)
-else if [ "$2" = "Release" ] then
+elif [ "$2" = "Release" ]; then
     echo "Building with Release configuration"
 
-    cmake .. -CMAKE_BUILD_TYPE=Release
+    cmake .. -DCMAKE_BUILD_TYPE=Release
     cmake --build . -- -j$(nproc)
 fi
 

@@ -34,6 +34,7 @@ namespace WS_Core {
         /*const char* TypeNames[] = {
             WS_CORE_ARG_TYPE(TO_STR)
         };*/
+        extern const char* TypeNames[];
 
         struct Arg {
             const char* name;
@@ -96,7 +97,7 @@ namespace WS_Core {
         typedef struct Value Value;
 
         // Probably shouldn't use a vector here
-        extern std::array<Arg, 3> args;
+        extern std::array<Arg, 6> args;
         // Also probably shouldn't use a map here
         extern std::map<const char*, Value, compare_strings> values;
 
@@ -130,5 +131,9 @@ namespace WS_Core {
         void set_value(const char* key, const char* string, bool path);
         void set_value(const char* key, float flt);
         void set_value(const char* key, double dbl);
+
+        // Debugging functions
+        // Mainly for verbose
+        void debug_log_values();
     }
 }
