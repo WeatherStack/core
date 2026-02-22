@@ -205,7 +205,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo</a></b></dt><dd>Add something here so that the above internal API can run async </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo</a></b></dt><dd>Add something here so that the above internal API can run async </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00033">33</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   33</span>                                       {</div>
@@ -249,32 +249,39 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   71</span> </div>
 <div class="line"><span class="lineno">   72</span>    <span class="comment">// Register all routes</span></div>
 <div class="line"><span class="lineno">   73</span>    CROW_ROUTE(app, <span class="stringliteral">&quot;/&quot;</span>).methods(crow::HTTPMethod::GET)([](<span class="keyword">const</span> crow::request&amp; req) {</div>
-<div class="line"><span class="lineno">   74</span>        std::string res = <span class="stringliteral">&quot;Welcome to WeatherStack Core!&quot;</span>;</div>
-<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">return</span> res;</div>
-<div class="line"><span class="lineno">   76</span>    });</div>
-<div class="line"><span class="lineno">   77</span> </div>
-<div class="line"><span class="lineno">   78</span>    <span class="comment">// Internal information API route</span></div>
-<div class="line"><span class="lineno">   79</span>    CROW_ROUTE(internal_app, <span class="stringliteral">&quot;/&quot;</span>).methods(crow::HTTPMethod::GET)([](<span class="keyword">const</span> crow::request&amp; req) {</div>
-<div class="line"><span class="lineno">   80</span>        crow::json::wvalue response;</div>
-<div class="line"><span class="lineno">   81</span>        response[<span class="stringliteral">&quot;version&quot;</span>] = <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a1a53b724b6de666faa8a9e0d06d1055f">VERSION_MAJOR</a>) <span class="stringliteral">&quot;.&quot;</span> <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#ae0cb52afb79b185b1bf82c7e235f682b">VERSION_MINOR</a>) <span class="stringliteral">&quot;.&quot;</span> <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a901edadf17488bb6be1ac9a1e3cfea7a">VERSION_PATCH</a>);</div>
-<div class="line"><span class="lineno">   82</span>        response[<span class="stringliteral">&quot;name&quot;</span>] = <span class="stringliteral">&quot;WeatherStack Core Internal API&quot;</span>;</div>
-<div class="line"><span class="lineno">   83</span>        response[<span class="stringliteral">&quot;repository&quot;</span>] = <span class="stringliteral">&quot;https://github.com/WeatherStack/Core&quot;</span>;</div>
-<div class="line"><span class="lineno">   84</span>        response[<span class="stringliteral">&quot;message&quot;</span>] = <span class="stringliteral">&quot;Number 5 is alive!&quot;</span>;</div>
-<div class="line"><span class="lineno">   85</span> </div>
-<div class="line"><span class="lineno">   86</span>        response[<span class="stringliteral">&quot;success&quot;</span>] = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   87</span>        response[<span class="stringliteral">&quot;code&quot;</span>] = 200;</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">return</span> response;</div>
-<div class="line"><span class="lineno">   90</span>    });</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>    <span class="comment">// Begin listening</span></div>
-<div class="line"><span class="lineno">   93</span>    std::future&lt;void&gt; app_future = app.port(<a class="code hl_define" href="#aad53c34493936ffe0b29c3b7302cea76">ENV</a>(<span class="stringliteral">&quot;PORT&quot;</span>).value.integer).multithreaded().run_async();</div>
-<div class="line"><span class="lineno">   94</span>    internal_app.port(<a class="code hl_define" href="#aad53c34493936ffe0b29c3b7302cea76">ENV</a>(<span class="stringliteral">&quot;INTERNAL_PORT&quot;</span>).value.integer).multithreaded().run();</div>
-<div class="line"><span class="lineno">   95</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   96</span><span class="comment">    /// @todo Add something here so that the above internal API can run async</span></div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">   99</span>}</div>
+<div class="line"><span class="lineno">   74</span>        crow::json::wvalue response;</div>
+<div class="line"><span class="lineno">   75</span>        response[<span class="stringliteral">&quot;version&quot;</span>] = <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a1a53b724b6de666faa8a9e0d06d1055f">VERSION_MAJOR</a>) <span class="stringliteral">&quot;.&quot;</span> <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#ae0cb52afb79b185b1bf82c7e235f682b">VERSION_MINOR</a>) <span class="stringliteral">&quot;.&quot;</span> <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a901edadf17488bb6be1ac9a1e3cfea7a">VERSION_PATCH</a>);</div>
+<div class="line"><span class="lineno">   76</span>        response[<span class="stringliteral">&quot;name&quot;</span>] = <span class="stringliteral">&quot;WeatherStack Core External API&quot;</span>;</div>
+<div class="line"><span class="lineno">   77</span>        response[<span class="stringliteral">&quot;repository&quot;</span>] = <span class="stringliteral">&quot;https://github.com/WeatherStack/Core&quot;</span>;</div>
+<div class="line"><span class="lineno">   78</span>        response[<span class="stringliteral">&quot;message&quot;</span>] = <span class="stringliteral">&quot;Number 5 is alive!&quot;</span>;</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>        response[<span class="stringliteral">&quot;success&quot;</span>] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   81</span>        response[<span class="stringliteral">&quot;code&quot;</span>] = 200;</div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">return</span> response;</div>
+<div class="line"><span class="lineno">   83</span>    });</div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>    <span class="comment">// Internal information API route</span></div>
+<div class="line"><span class="lineno">   86</span>    CROW_ROUTE(internal_app, <span class="stringliteral">&quot;/&quot;</span>).methods(crow::HTTPMethod::GET)([](<span class="keyword">const</span> crow::request&amp; req) {</div>
+<div class="line"><span class="lineno">   87</span>        crow::json::wvalue response;</div>
+<div class="line"><span class="lineno">   88</span>        response[<span class="stringliteral">&quot;version&quot;</span>] = <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a1a53b724b6de666faa8a9e0d06d1055f">VERSION_MAJOR</a>) <span class="stringliteral">&quot;.&quot;</span> <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#ae0cb52afb79b185b1bf82c7e235f682b">VERSION_MINOR</a>) <span class="stringliteral">&quot;.&quot;</span> <a class="code hl_define" href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a>(<a class="code hl_define" href="../../d6/d17/ws__core_2ws_8h.html#a901edadf17488bb6be1ac9a1e3cfea7a">VERSION_PATCH</a>);</div>
+<div class="line"><span class="lineno">   89</span>        response[<span class="stringliteral">&quot;name&quot;</span>] = <span class="stringliteral">&quot;WeatherStack Core Internal API&quot;</span>;</div>
+<div class="line"><span class="lineno">   90</span>        response[<span class="stringliteral">&quot;repository&quot;</span>] = <span class="stringliteral">&quot;https://github.com/WeatherStack/Core&quot;</span>;</div>
+<div class="line"><span class="lineno">   91</span>        response[<span class="stringliteral">&quot;message&quot;</span>] = <span class="stringliteral">&quot;Number 5 is alive!&quot;</span>;</div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>        response[<span class="stringliteral">&quot;success&quot;</span>] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   94</span>        response[<span class="stringliteral">&quot;code&quot;</span>] = 200;</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> response;</div>
+<div class="line"><span class="lineno">   97</span>    });</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>    <span class="comment">// Begin listening</span></div>
+<div class="line"><span class="lineno">  100</span>    std::future&lt;void&gt; app_future = app.port(<a class="code hl_define" href="#aad53c34493936ffe0b29c3b7302cea76">ENV</a>(<span class="stringliteral">&quot;PORT&quot;</span>).value.integer).multithreaded().run_async();</div>
+<div class="line"><span class="lineno">  101</span>    internal_app.port(<a class="code hl_define" href="#aad53c34493936ffe0b29c3b7302cea76">ENV</a>(<span class="stringliteral">&quot;INTERNAL_PORT&quot;</span>).value.integer).multithreaded().run();</div>
+<div class="line"><span class="lineno">  102</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  103</span><span class="comment">    /// @todo Add something here so that the above internal API can run async</span></div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  106</span>}</div>
 <div class="ttc" id="amacros_8h_html_aae57f17e11e61cf0519e2004414f5629"><div class="ttname"><a href="../../de/d3c/macros_8h.html#aae57f17e11e61cf0519e2004414f5629">STR</a></div><div class="ttdeci">#define STR(X)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d3c/macros_8h_source.html#l00006">macros.h:6</a></div></div>
 <div class="ttc" id="amain_8cpp_html_aad53c34493936ffe0b29c3b7302cea76"><div class="ttname"><a href="#aad53c34493936ffe0b29c3b7302cea76">ENV</a></div><div class="ttdeci">#define ENV(x)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d0a/main_8cpp_source.html#l00028">main.cpp:28</a></div></div>
 <div class="ttc" id="amain_8cpp_html_ad7785880ac757c128bf9b50dec3041d6"><div class="ttname"><a href="#ad7785880ac757c128bf9b50dec3041d6">ENVS</a></div><div class="ttdeci">#define ENVS(x, y, z)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d0a/main_8cpp_source.html#l00030">main.cpp:30</a></div></div>
