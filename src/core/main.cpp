@@ -71,8 +71,15 @@ int main(int argc, char* const argv[]) {
 
     // Register all routes
     CROW_ROUTE(app, "/").methods(crow::HTTPMethod::GET)([](const crow::request& req) {
-        std::string res = "Welcome to WeatherStack Core!";
-        return res;
+        crow::json::wvalue response;
+        response["version"] = STR(VERSION_MAJOR) "." STR(VERSION_MINOR) "." STR(VERSION_PATCH);
+        response["name"] = "WeatherStack Core External API";
+        response["repository"] = "https://github.com/WeatherStack/Core";
+        response["message"] = "Number 5 is alive!";
+
+        response["success"] = true;
+        response["code"] = 200;
+        return response;
     });
 
     // Internal information API route
