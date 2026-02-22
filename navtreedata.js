@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "WeatherStack Core", "index.html", [
     [ "Todo List", "dd/da0/todo.html", null ],
+    [ "Bug List", "de/da5/bug.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

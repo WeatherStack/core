@@ -350,8 +350,8 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Success or not </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000001">Bug</a></b></dt><dd>This is for some reason picking up flags as ports </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo</a></b></dt><dd>Path implementation </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo</a></b></dt><dd>Port implementation </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../da/d7d/args_8cpp_source.html#l00264">264</a> of file <a class="el" href="../../da/d7d/args_8cpp_source.html">args.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  264</span>                                                  {</div>
@@ -366,99 +366,99 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">  273</span>            .success = <span class="keyword">true</span></div>
 <div class="line"><span class="lineno">  274</span>        };</div>
 <div class="line"><span class="lineno">  275</span>    }</div>
-<div class="line"><span class="lineno">  276</span>    </div>
-<div class="line"><span class="lineno">  277</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 1; i &lt; argc; i++) {</div>
-<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="../../da/d7d/args_8cpp.html#a4ae919b344f3f30298fb3914bb1e44dd">find_arg</a>(argv[i], &amp;current_arg)) {</div>
-<div class="line"><span class="lineno">  279</span>            printf(<span class="stringliteral">&quot;%s %s\n&quot;</span>, argv[i], <a class="code hl_variable" href="#a401a3acf6111eaa30466f89e68ab303d">TypeNames</a>[current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#aa0a74cbe1999ce93c292bef65f258279">arg_type</a>]);</div>
-<div class="line"><span class="lineno">  280</span>            <span class="keywordflow">switch</span>(current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#aa0a74cbe1999ce93c292bef65f258279">arg_type</a>) {</div>
-<div class="line"><span class="lineno">  281</span>                <span class="keywordflow">case</span> FLAG:</div>
-<div class="line"><span class="lineno">  282</span>                    <span class="keywordflow">if</span>(i &gt; argc - 1) {</div>
-<div class="line"><span class="lineno">  283</span>                        <span class="comment">// Check to see if it is a form of boolean</span></div>
-<div class="line"><span class="lineno">  284</span>                        <span class="keywordflow">if</span>(<a class="code hl_function" href="../../da/d7d/args_8cpp.html#a7de49054d5121d39cc53f2ce87c67686">str_is_bool</a>(argv[i + 1])) {</div>
-<div class="line"><span class="lineno">  285</span>                            <span class="keywordtype">bool</span> val = <a class="code hl_function" href="../../da/d7d/args_8cpp.html#add87359364f893ef85102b218cd4a3d7">str_to_bool</a>(argv[i + 1]);</div>
-<div class="line"><span class="lineno">  286</span> </div>
-<div class="line"><span class="lineno">  287</span>                            <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
-<div class="line"><span class="lineno">  288</span>                                current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
-<div class="line"><span class="lineno">  289</span>                                val</div>
-<div class="line"><span class="lineno">  290</span>                            );</div>
-<div class="line"><span class="lineno">  291</span> </div>
-<div class="line"><span class="lineno">  292</span>                            i++;</div>
-<div class="line"><span class="lineno">  293</span>                        }</div>
-<div class="line"><span class="lineno">  294</span>                    }</div>
-<div class="line"><span class="lineno">  295</span> </div>
-<div class="line"><span class="lineno">  296</span>                    <span class="comment">// Maybe in the future warn the user</span></div>
-<div class="line"><span class="lineno">  297</span>                    <span class="comment">// that specifying a flag that is by</span></div>
-<div class="line"><span class="lineno">  298</span>                    <span class="comment">// default true, without specifying</span></div>
-<div class="line"><span class="lineno">  299</span>                    <span class="comment">// false will do nothing</span></div>
-<div class="line"><span class="lineno">  300</span> </div>
-<div class="line"><span class="lineno">  301</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
-<div class="line"><span class="lineno">  302</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
-<div class="line"><span class="lineno">  303</span>                        <span class="keyword">true</span></div>
-<div class="line"><span class="lineno">  304</span>                    );</div>
-<div class="line"><span class="lineno">  305</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  306</span>                <span class="keywordflow">case</span> INTEGER:</div>
-<div class="line"><span class="lineno">  307</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
-<div class="line"><span class="lineno">  308</span>                        <span class="comment">// Invalid arguments</span></div>
-<div class="line"><span class="lineno">  309</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  310</span>                    }</div>
-<div class="line"><span class="lineno">  311</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
-<div class="line"><span class="lineno">  312</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
-<div class="line"><span class="lineno">  313</span>                        std::atoi(argv[i + 1]),</div>
-<div class="line"><span class="lineno">  314</span>                        <span class="keyword">false</span></div>
-<div class="line"><span class="lineno">  315</span>                    );</div>
-<div class="line"><span class="lineno">  316</span>                    i++;</div>
-<div class="line"><span class="lineno">  317</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  318</span>                <span class="keywordflow">case</span> STRING:</div>
-<div class="line"><span class="lineno">  319</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
-<div class="line"><span class="lineno">  320</span>                        <span class="comment">// Invalid arguments</span></div>
-<div class="line"><span class="lineno">  321</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  322</span>                    }</div>
-<div class="line"><span class="lineno">  323</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
-<div class="line"><span class="lineno">  324</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
-<div class="line"><span class="lineno">  325</span>                        argv[i + 1],</div>
-<div class="line"><span class="lineno">  326</span>                        <span class="keyword">false</span></div>
-<div class="line"><span class="lineno">  327</span>                    );</div>
-<div class="line"><span class="lineno">  328</span>                    i++;</div>
-<div class="line"><span class="lineno">  329</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  330</span>                <span class="keywordflow">case</span> FLOAT:</div>
-<div class="line"><span class="lineno">  331</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
-<div class="line"><span class="lineno">  332</span>                        <span class="comment">// Invalid arguments</span></div>
-<div class="line"><span class="lineno">  333</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  334</span>                    }</div>
-<div class="line"><span class="lineno">  335</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
-<div class="line"><span class="lineno">  336</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
-<div class="line"><span class="lineno">  337</span>                        std::atof(argv[i + 1]),</div>
-<div class="line"><span class="lineno">  338</span>                        <span class="keyword">false</span></div>
-<div class="line"><span class="lineno">  339</span>                    );</div>
-<div class="line"><span class="lineno">  340</span>                    i++;</div>
-<div class="line"><span class="lineno">  341</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  342</span>                <span class="keywordflow">case</span> DOUBLE:</div>
-<div class="line"><span class="lineno">  343</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
-<div class="line"><span class="lineno">  344</span>                        <span class="comment">// Invalid arguments</span></div>
-<div class="line"><span class="lineno">  345</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  346</span>                    }</div>
-<div class="line"><span class="lineno">  347</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
-<div class="line"><span class="lineno">  348</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
-<div class="line"><span class="lineno">  349</span>                        std::atof(argv[i + 1]),</div>
-<div class="line"><span class="lineno">  350</span>                        <span class="keyword">false</span></div>
-<div class="line"><span class="lineno">  351</span>                    );</div>
-<div class="line"><span class="lineno">  352</span>                    i++;</div>
-<div class="line"><span class="lineno">  353</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  354</span>                <span class="keywordflow">case</span> PATH:</div>
-<div class="line"><span class="lineno">  355</span>                    <span class="comment">// Need to check that the path is valid</span></div>
-<div class="line"><span class="lineno">  356</span>                    <span class="comment">// even if the file/directory it is pointed</span></div>
-<div class="line"><span class="lineno">  357</span>                    <span class="comment">// at does not exist</span></div>
-<div class="line"><span class="lineno">  358</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  359</span><span class="comment">                    /// @todo Path implementation</span></div>
-<div class="line"><span class="lineno">  360</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  361</span>                <span class="keywordflow">case</span> PORT:</div>
-<div class="line"><span class="lineno">  362</span>                    <span class="comment">// This one is a little special</span></div>
-<div class="line"><span class="lineno">  363</span>                    <span class="comment">// It needs checking to ensure</span></div>
-<div class="line"><span class="lineno">  364</span>                    <span class="comment">// that it is within valid port</span></div>
-<div class="line"><span class="lineno">  365</span>                    <span class="comment">// ranges</span></div>
-<div class="line"><span class="lineno">  366</span>                    <span class="comment">// And isn&#39;t something silly</span></div>
-<div class="line"><span class="lineno">  367</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  368</span><span class="comment">                    /// @todo Port implementation</span></div>
+<div class="line"><span class="lineno">  276</span>    <span class="comment"></span></div>
+<div class="line"><span class="lineno">  277</span><span class="comment">    /// @bug This is for some reason picking up flags as ports</span></div>
+<div class="line"><span class="lineno">  278</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 1; i &lt; argc; i++) {</div>
+<div class="line"><span class="lineno">  279</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="../../da/d7d/args_8cpp.html#a4ae919b344f3f30298fb3914bb1e44dd">find_arg</a>(argv[i], &amp;current_arg)) {</div>
+<div class="line"><span class="lineno">  280</span>            printf(<span class="stringliteral">&quot;%s %s\n&quot;</span>, argv[i], <a class="code hl_variable" href="#a401a3acf6111eaa30466f89e68ab303d">TypeNames</a>[current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#aa0a74cbe1999ce93c292bef65f258279">arg_type</a>]);</div>
+<div class="line"><span class="lineno">  281</span>            <span class="keywordflow">switch</span>(current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#aa0a74cbe1999ce93c292bef65f258279">arg_type</a>) {</div>
+<div class="line"><span class="lineno">  282</span>                <span class="keywordflow">case</span> FLAG:</div>
+<div class="line"><span class="lineno">  283</span>                    <span class="keywordflow">if</span>(i &gt; argc - 1) {</div>
+<div class="line"><span class="lineno">  284</span>                        <span class="comment">// Check to see if it is a form of boolean</span></div>
+<div class="line"><span class="lineno">  285</span>                        <span class="keywordflow">if</span>(<a class="code hl_function" href="../../da/d7d/args_8cpp.html#a7de49054d5121d39cc53f2ce87c67686">str_is_bool</a>(argv[i + 1])) {</div>
+<div class="line"><span class="lineno">  286</span>                            <span class="keywordtype">bool</span> val = <a class="code hl_function" href="../../da/d7d/args_8cpp.html#add87359364f893ef85102b218cd4a3d7">str_to_bool</a>(argv[i + 1]);</div>
+<div class="line"><span class="lineno">  287</span> </div>
+<div class="line"><span class="lineno">  288</span>                            <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
+<div class="line"><span class="lineno">  289</span>                                current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
+<div class="line"><span class="lineno">  290</span>                                val</div>
+<div class="line"><span class="lineno">  291</span>                            );</div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span>                            i++;</div>
+<div class="line"><span class="lineno">  294</span>                        }</div>
+<div class="line"><span class="lineno">  295</span>                    }</div>
+<div class="line"><span class="lineno">  296</span> </div>
+<div class="line"><span class="lineno">  297</span>                    <span class="comment">// Maybe in the future warn the user</span></div>
+<div class="line"><span class="lineno">  298</span>                    <span class="comment">// that specifying a flag that is by</span></div>
+<div class="line"><span class="lineno">  299</span>                    <span class="comment">// default true, without specifying</span></div>
+<div class="line"><span class="lineno">  300</span>                    <span class="comment">// false will do nothing</span></div>
+<div class="line"><span class="lineno">  301</span> </div>
+<div class="line"><span class="lineno">  302</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
+<div class="line"><span class="lineno">  303</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
+<div class="line"><span class="lineno">  304</span>                        <span class="keyword">true</span></div>
+<div class="line"><span class="lineno">  305</span>                    );</div>
+<div class="line"><span class="lineno">  306</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  307</span>                <span class="keywordflow">case</span> INTEGER:</div>
+<div class="line"><span class="lineno">  308</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
+<div class="line"><span class="lineno">  309</span>                        <span class="comment">// Invalid arguments</span></div>
+<div class="line"><span class="lineno">  310</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  311</span>                    }</div>
+<div class="line"><span class="lineno">  312</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
+<div class="line"><span class="lineno">  313</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
+<div class="line"><span class="lineno">  314</span>                        std::atoi(argv[i + 1]),</div>
+<div class="line"><span class="lineno">  315</span>                        <span class="keyword">false</span></div>
+<div class="line"><span class="lineno">  316</span>                    );</div>
+<div class="line"><span class="lineno">  317</span>                    i++;</div>
+<div class="line"><span class="lineno">  318</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  319</span>                <span class="keywordflow">case</span> STRING:</div>
+<div class="line"><span class="lineno">  320</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
+<div class="line"><span class="lineno">  321</span>                        <span class="comment">// Invalid arguments</span></div>
+<div class="line"><span class="lineno">  322</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  323</span>                    }</div>
+<div class="line"><span class="lineno">  324</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
+<div class="line"><span class="lineno">  325</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
+<div class="line"><span class="lineno">  326</span>                        argv[i + 1],</div>
+<div class="line"><span class="lineno">  327</span>                        <span class="keyword">false</span></div>
+<div class="line"><span class="lineno">  328</span>                    );</div>
+<div class="line"><span class="lineno">  329</span>                    i++;</div>
+<div class="line"><span class="lineno">  330</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  331</span>                <span class="keywordflow">case</span> FLOAT:</div>
+<div class="line"><span class="lineno">  332</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
+<div class="line"><span class="lineno">  333</span>                        <span class="comment">// Invalid arguments</span></div>
+<div class="line"><span class="lineno">  334</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  335</span>                    }</div>
+<div class="line"><span class="lineno">  336</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
+<div class="line"><span class="lineno">  337</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
+<div class="line"><span class="lineno">  338</span>                        std::atof(argv[i + 1]),</div>
+<div class="line"><span class="lineno">  339</span>                        <span class="keyword">false</span></div>
+<div class="line"><span class="lineno">  340</span>                    );</div>
+<div class="line"><span class="lineno">  341</span>                    i++;</div>
+<div class="line"><span class="lineno">  342</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  343</span>                <span class="keywordflow">case</span> DOUBLE:</div>
+<div class="line"><span class="lineno">  344</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
+<div class="line"><span class="lineno">  345</span>                        <span class="comment">// Invalid arguments</span></div>
+<div class="line"><span class="lineno">  346</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  347</span>                    }</div>
+<div class="line"><span class="lineno">  348</span>                    <a class="code hl_function" href="#a6bbabd74cad8d2df93ffb240c049611b">Args::set_value</a>(</div>
+<div class="line"><span class="lineno">  349</span>                        current_arg.<a class="code hl_variable" href="../../de/d43/structWS__Core_1_1Args_1_1Arg.html#afe2fe21902e8fc87223063b739148a52">internal_name</a>,</div>
+<div class="line"><span class="lineno">  350</span>                        std::atof(argv[i + 1]),</div>
+<div class="line"><span class="lineno">  351</span>                        <span class="keyword">false</span></div>
+<div class="line"><span class="lineno">  352</span>                    );</div>
+<div class="line"><span class="lineno">  353</span>                    i++;</div>
+<div class="line"><span class="lineno">  354</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  355</span>                <span class="keywordflow">case</span> PATH:</div>
+<div class="line"><span class="lineno">  356</span>                    <span class="comment">// Need to check that the path is valid</span></div>
+<div class="line"><span class="lineno">  357</span>                    <span class="comment">// even if the file/directory it is pointed</span></div>
+<div class="line"><span class="lineno">  358</span>                    <span class="comment">// at does not exist</span></div>
+<div class="line"><span class="lineno">  359</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  360</span><span class="comment">                    /// @todo Path implementation</span></div>
+<div class="line"><span class="lineno">  361</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  362</span>                <span class="keywordflow">case</span> PORT:</div>
+<div class="line"><span class="lineno">  363</span>                    <span class="comment">// This one is a little special</span></div>
+<div class="line"><span class="lineno">  364</span>                    <span class="comment">// It needs checking to ensure</span></div>
+<div class="line"><span class="lineno">  365</span>                    <span class="comment">// that it is within valid port</span></div>
+<div class="line"><span class="lineno">  366</span>                    <span class="comment">// ranges</span></div>
+<div class="line"><span class="lineno">  367</span>                    <span class="comment">// And isn&#39;t something silly</span></div>
+<div class="line"><span class="lineno">  368</span> </div>
 <div class="line"><span class="lineno">  369</span>                    <span class="keywordflow">if</span>(i == argc - 1) {</div>
 <div class="line"><span class="lineno">  370</span>                        <span class="comment">// Invalid arguments</span></div>
 <div class="line"><span class="lineno">  371</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
