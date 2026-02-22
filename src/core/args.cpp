@@ -274,6 +274,7 @@ bool Args::parse_args(int argc, char* const argv[]) {
         };
     }
     
+    /// @bug This is for some reason picking up flags as ports
     for(int i = 1; i < argc; i++) {
         if(find_arg(argv[i], &current_arg)) {
             printf("%s %s\n", argv[i], TypeNames[current_arg.arg_type]);
@@ -365,7 +366,6 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     // ranges
                     // And isn't something silly
 
-                    /// @todo Port implementation
                     if(i == argc - 1) {
                         // Invalid arguments
                         return false;
