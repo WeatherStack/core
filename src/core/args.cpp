@@ -258,7 +258,7 @@ bool find_arg(const char* name, Args::Arg* out) {
 
     free(arg);
     out = NULL;
-    return NULL;
+    return false;
 }
 
 bool Args::parse_args(int argc, char* const argv[]) {
