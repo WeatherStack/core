@@ -1,4 +1,4 @@
-#include <malloc.h>
+#include <cstdlib>
 #include <string.h>
 #include <ws_core/ws.h>
 #include <ws_core/types/args.h>
@@ -162,26 +162,33 @@ void str_to_lower(const char* o, char* n) {
 }
 
 bool str_to_bool(const char* str) {
-    char* lower = (char*)malloc(sizeof(str));
+    char* lower = (char*)malloc(strlen(str) + 1);
     str_to_lower(str, lower);
-    if(strcmp(lower, "on") == 1 ||
-        strcmp(lower, "true") == 1) {
+    if(strcmp(lower, "on") == 0 ||
+        strcmp(lower, "true") == 0) {
+        free(lower);
         return true;
     }
     
-    if(strcmp(lower, "off") == 1 ||
-        strcmp(lower, "false") == 1) {
+    if(strcmp(lower, "off") == 0 ||
+        strcmp(lower, "false") == 0) {
+        free(lower);
         return false;
     }
+
+    free(lower);
+    return false;
 }
 
 bool str_is_bool(const char* str) {
-    char* lower = (char*)malloc(sizeof(str));
+    char* lower = (char*)malloc(strlen(str) + 1);
     str_to_lower(str, lower);
-    return strcmp(lower, "on") == 1 ||
-        strcmp(lower, "true") == 1 ||
-        strcmp(lower, "off") == 1 ||
-        strcmp(lower, "false") == 1;
+    bool result = strcmp(lower, "on") == 0 ||
+        strcmp(lower, "true") == 0 ||
+        strcmp(lower, "off") == 0 ||
+        strcmp(lower, "false") == 0;
+    free(lower);
+    return result;
 }
 
 bool starts_with(const char* prefix, const char* str) {
@@ -218,46 +225,54 @@ bool remove_first(const char* o, char* n) {
 }
 
 bool find_arg(const char* name, Args::Arg* out) {
-    // Check if it either begins with the long
-    // or short argument thing
-    // and because Windows just has to be unique
-    // just check both on Windows
-
-    char* arg = (char*)malloc(sizeof(name));
-    bool kind = remove_first(name, arg);
-
-    if(arg == NULL) {
-        // If arg is NULL, remove_first just didn't
-        // like it
-        out = NULL;
+    if(name == NULL || out == NULL) {
         return false;
     }
+
+    // Strip the expected argument prefix and then compare against
+    // canonical long/short argument names.
+    const char* arg = nullptr;
+    bool kind = false;
+
+#if defined(_WIN32) || defined(_WIN64)
+    if(starts_with(WS_CLI_ARG_LONG_BEGIN, name) || starts_with(WS_CLI_ARG_SHORT_BEGIN, name)) {
+        arg = name + 1;
+    } else {
+        return false;
+    }
+#else
+    if(starts_with(WS_CLI_ARG_LONG_BEGIN, name)) {
+        kind = true;
+        arg = name + 2;
+    } else if(starts_with(WS_CLI_ARG_SHORT_BEGIN, name)) {
+        arg = name + 1;
+    } else {
+        return false;
+    }
+#endif
 
     for(int i = 0; i < Args::args.size(); i++) {
         bool is_arg = false;
     #if defined(_WIN32) || defined(_WIN64)
         // Completely discard "kind"
-        if(strcmp(Args::args[i].arg_long, name) == 1 ||
-            strcmp(Args::args[i].arg_short, name) == 1) {
+        if(strcmp(Args::args[i].arg_long, arg) == 0 ||
+            strcmp(Args::args[i].arg_short, arg) == 0) {
             is_arg = true;
         }
     #else
         if(kind &&
-            strcmp(Args::args[i].arg_long, name) == 1) {
+            strcmp(Args::args[i].arg_long, arg) == 0) {
             is_arg = true;
-        } else if(strcmp(Args::args[i].arg_short, name) == 1) {
+        } else if(!kind && strcmp(Args::args[i].arg_short, arg) == 0) {
             is_arg = true;
         }
     #endif
         if(is_arg) {
-            free(arg);
             memcpy(out, &Args::args[i], sizeof(Args::Arg));
             return true;
         }
     }
 
-    free(arg);
-    out = NULL;
     return false;
 }
 
@@ -279,11 +294,13 @@ bool Args::parse_args(int argc, char* const argv[]) {
         if(find_arg(argv[i], &current_arg)) {
             printf("%s %s\n", argv[i], TypeNames[current_arg.arg_type]);
             switch(current_arg.arg_type) {
-                case FLAG:
-                    if(i > argc - 1) {
+                case FLAG: {
+                    bool explicit_bool = false;
+                    if(i < argc - 1) {
                         // Check to see if it is a form of boolean
                         if(str_is_bool(argv[i + 1])) {
                             bool val = str_to_bool(argv[i + 1]);
+                            explicit_bool = true;
 
                             Args::set_value(
                                 current_arg.internal_name,
@@ -299,11 +316,14 @@ bool Args::parse_args(int argc, char* const argv[]) {
                     // default true, without specifying
                     // false will do nothing
 
-                    Args::set_value(
-                        current_arg.internal_name,
-                        true
-                    );
+                    if(!explicit_bool) {
+                        Args::set_value(
+                            current_arg.internal_name,
+                            true
+                        );
+                    }
                     break;
+                }
                 case INTEGER:
                     if(i == argc - 1) {
                         // Invalid arguments
@@ -473,13 +493,13 @@ void Args::debug_log_values() {
                 break;
             case STRING:
             case PATH:
-                printf(it->second.value.string);
+                printf("%s", it->second.value.string != NULL ? it->second.value.string : "(null)");
                 break;
             case FLOAT:
-                printf("%d", it->second.value.flt);
+                printf("%f", it->second.value.flt);
                 break;
             case DOUBLE:
-                printf("%d", it->second.value.dbl);
+                printf("%f", it->second.value.dbl);
                 break;
         }
         printf("\n\tDefault: %s", it->second.using_default ? "true" : "false");
