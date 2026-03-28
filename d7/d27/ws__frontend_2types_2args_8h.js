@@ -1,4 +1,4 @@
-var ws__core_2types_2args_8h =
+var ws__frontend_2types_2args_8h =
 [
     [ "compare_strings", "da/d2b/structcompare__strings.html", "da/d2b/structcompare__strings" ],
     [ "WS_Core::Args::Arg", "de/d43/structWS__Core_1_1Args_1_1Arg.html", "de/d43/structWS__Core_1_1Args_1_1Arg" ],
@@ -8,7 +8,7 @@ var ws__core_2types_2args_8h =
     [ "WS_Core::Args::Arg::Ranges::Float", "db/ddc/structWS__Core_1_1Args_1_1Arg_1_1Ranges_1_1Float.html", "db/ddc/structWS__Core_1_1Args_1_1Arg_1_1Ranges_1_1Float" ],
     [ "WS_Core::Args::Arg::Ranges::Double", "d1/dad/structWS__Core_1_1Args_1_1Arg_1_1Ranges_1_1Double.html", "d1/dad/structWS__Core_1_1Args_1_1Arg_1_1Ranges_1_1Double" ],
     [ "WS_Core::Args::Value", "d0/de8/structWS__Core_1_1Args_1_1Value.html", "d0/de8/structWS__Core_1_1Args_1_1Value" ],
-    [ "WS_CORE_ARG_TYPE", "dd/df3/ws__core_2types_2args_8h.html#a9f545fa39b3f66973fb637028c5d6e09", null ],
+    [ "WS_CORE_ARG_TYPE", "d7/d27/ws__frontend_2types_2args_8h.html#a9f545fa39b3f66973fb637028c5d6e09", null ],
     [ "WS_Core::Args::Arg", "da/d68/namespaceWS__Core_1_1Args.html#ab7684cfa5b7ac86a847aa7ce06852dac", null ],
     [ "WS_Core::Args::type", "da/d68/namespaceWS__Core_1_1Args.html#a6874b407470c0c2b63a21b56abb4a4f1", null ],
     [ "WS_Core::Args::Value", "da/d68/namespaceWS__Core_1_1Args.html#aa5e09cf50251620f4fa7bc296b45392e", null ],
