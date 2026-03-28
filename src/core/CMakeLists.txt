@@ -24,7 +24,18 @@ target_link_libraries(
     ZLIB::ZLIB
     OpenSSL::SSL
     Crow::Crow
+    
 )
+
+if(WIN32)
+    target_link_libraries(
+        ${PROJECT_NAME}
+        PRIVATE
+        # The below needs to be separated, as they are only required on Windows
+        ws2_32
+        mswsock
+    )
+endif()
 
 # Set warning options
 set(OPTIONS_WARNINGS -Wall )#-Wpedantic)
