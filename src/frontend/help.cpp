@@ -1,7 +1,7 @@
 #include <iostream>
-#include <ws_core/ws.h>
-#include <ws_core/types/args.h>
-#include <ws_core/help.h>
+#include <ws_frontend/ws.h>
+#include <ws_frontend/types/args.h>
+#include <ws_frontend/help.h>
 
 using namespace WS_Core;
 

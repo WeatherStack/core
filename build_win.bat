@@ -22,12 +22,12 @@ cd %1
 if %2 == Debug (
     echo Building with Debug configuration
 
-    cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE="%3"
+    cmake .. -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="%3" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DVCPKG_TARGET_TRIPLET=x64-mingw-static
     cmake --build . --config Debug
 ) else if %2 == Release (
     echo Building with Release configuration
 
-    cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE="%3"
+    cmake .. -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="%3" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DVCPKG_TARGET_TRIPLET=x64-mingw-static
     cmake --build . --config Release
 )
 

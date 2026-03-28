@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <string.h>
-#include <ws_core/ws.h>
-#include <ws_core/types/args.h>
+#include <ws_frontend/ws.h>
+#include <ws_frontend/types/args.h>
 
 // Debugging
 #include <iostream>

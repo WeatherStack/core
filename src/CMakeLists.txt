@@ -12,4 +12,5 @@ find_package(ZLIB REQUIRED)
 
 # Add other directories
 add_subdirectory(core)
+add_subdirectory(frontend)
 add_subdirectory(utils)

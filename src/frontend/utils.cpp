@@ -1,4 +1,4 @@
-#include <ws_core/utils.h>
+#include <ws_frontend/utils.h>
 
 namespace WS_Core {
     namespace Utils {
