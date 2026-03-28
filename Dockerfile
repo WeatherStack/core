@@ -19,9 +19,9 @@ RUN cmake --build build --parallel $(nproc)
 FROM alpine:latest
 
 WORKDIR /app
-COPY --from=builder /app/bin/ws_core .
+COPY --from=builder /app/bin/ws_frontend .
 COPY --from=builder /usr/lib/* /usr/lib/
 
 EXPOSE ${PORT}
 
-CMD ["./ws_core"]
+CMD ["./ws_frontend"]
