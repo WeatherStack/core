@@ -9,7 +9,7 @@
         assertion = #expr;                      \
         file = __FILE__;                        \
         line = __LINE__;                        \
-        if(expr) putchar('.'); else goto fail;  \
+        if(expr) printf("Test \"%s\" passed\n", test); else goto fail;  \
     } while(0)
 
 int main() {
@@ -23,10 +23,11 @@ int main() {
     #undef TESTS
 
     putchar('\n');
+    printf("All tests passed");
     return 0;
 
 fail:
-    printf("!\nTest failed at %s:%d\n\t%s: %s\n",
+    printf("Test failed at %s:%d\n\t%s: %s\n",
         file, line,
         test, assertion);
     return 1;
